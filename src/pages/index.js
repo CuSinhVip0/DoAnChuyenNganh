@@ -1,11 +1,15 @@
-import { Inter } from "next/font/google";
+import Head from "next/head";
+import Link from "next/link";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
+export default function Page({ repo }) {
     return (
         <>
-            <h1>Hello</h1>
+            <Head>
+                <title>Home</title>
+            </Head>
+            <h1>Home</h1>
+            <Link href={"/login"}>Login</Link>
+            <Link href={"/register"}>Register</Link>
         </>
     );
 }
