@@ -1,7 +1,7 @@
 // pages/login.js
 import { useRef, useState } from "react";
 import Head from "next/head";
-import loginStyles from "@/styles/login.module.css";
+import login from "@/styles/login.module.css";
 
 export default function LoginPage() {
   const usernameRef = useRef();
@@ -39,35 +39,35 @@ export default function LoginPage() {
       <Head>
         <title>Đăng nhập</title>
       </Head>
-      <div className={loginStyles.wrapper}>
-        <div className={loginStyles.container}>
-          <div className={loginStyles.form_login}>
-            <div className={loginStyles.title}>Đăng nhập</div>
+      <div className={login.wrapper}>
+        <div className={login.container}>
+          <div className={login.form_login}>
+            <div className={login.title}>Đăng nhập</div>
             <form method="post" onSubmit={handleSubmit}>
               <input
                 type="text"
-                className={loginStyles.input}
+                className={login.input}
                 name="username"
                 placeholder="Tài khoản"
                 ref={usernameRef}
               />
               <input
                 type="password"
-                className={loginStyles.input}
+                className={login.input}
                 name="password"
                 placeholder="Mật khẩu"
                 ref={passwordRef}
               />
               <input
                 type="submit"
-                className={loginStyles.input + " " + loginStyles.login_submit}
+                className={login.input + " " + login.login_submit}
                 value="Đăng nhập"
               />
             </form>
-            <div className={loginStyles.sub}>
-              <p className={loginStyles.sub_title}>
+            <div className={login.sub}>
+              <p className={login.sub_title}>
                 Bạn chưa có tài khoản?{" "}
-                <a className={loginStyles.sub_link} href="/register">
+                <a className={login.sub_link} href="/register">
                   Đăng ký
                 </a>
               </p>
