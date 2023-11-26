@@ -17,7 +17,7 @@ export default function Page({ repo }) {
                 <div className={register.container}>
                     <div className={register.form_register}>
                         <div className={register.title}>Đăng ký</div>
-                        <form method="post" onSubmit={(e) => handleSubmit(e)} action="http://localhost:3000/api/login">
+                        <form method="post" onSubmit={(e) => handleSubmit(e)} action="http://localhost:3000/api/register">
                             <input
                                 type="text"
                                 className={register.input}
