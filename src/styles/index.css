@@ -32,11 +32,11 @@ hr {
 }
 
 .scrollup {
-    top: -15% !important;
+    top: -67.5px !important;
     transition: top 0.5s;
 }
 .scrolldown {
-    top: 0% !important;
+    top: 0px !important;
     transition: top 0.5s;
 }
 
