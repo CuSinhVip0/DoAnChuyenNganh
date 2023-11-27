@@ -17,7 +17,7 @@ export default function Page(props) {
             <Head>
                 <title>Home</title>
             </Head>
-            <Nav hascookie={props.hascookie} />
+            <Nav hascookie={props.hascookie}  />
             <div>
                 <br />
                 <br />

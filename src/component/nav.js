@@ -20,52 +20,64 @@ export default function Nav({hascookie}) {
         deleteCookie('id_nguoidung');
         router.reload();
     };
+    console.dir(container);
 
     useEffect(() => {
         //xử lý sự kiện khi lăn chuột của navbar
         window.addEventListener('wheel', function (event) {
             if (event.deltaY < 0) {
-                if (container.current.classList.contains('scrollup')) {
-                    container.current.className =
-                        container.current.className.replace(' scrollup', '');
-                }
-                if (container.current.classList.contains('scrolldown')) {
-                    return;
-                }
-                if (left.current.classList.contains('translateY_25')) {
-                    left.current.className = left.current.className.replace(
-                        ' translateY_25',
-                        '',
-                    );
-                }
-                if (left.current.classList.contains('translateY_0')) {
-                    return;
-                }
+                if (container.current != null) {
+                    if (container.current.classList.contains('scrollup')) {
+                        container.current.className =
+                            container.current.className.replace(
+                                ' scrollup',
+                                '',
+                            );
+                    }
+                    if (container.current.classList.contains('scrolldown')) {
+                        return;
+                    }
+                    if (left.current.classList.contains('translateY_25')) {
+                        left.current.className = left.current.className.replace(
+                            ' translateY_25',
+                            '',
+                        );
+                    }
+                    if (left.current.classList.contains('translateY_0')) {
+                        return;
+                    }
 
-                left.current.className += ' translateY_0';
-                container.current.className += ' scrolldown';
+                    left.current.className += ' translateY_0';
+                    container.current.className += ' scrolldown';
+                }
             } else if (event.deltaY > 0) {
-                if (container.current.classList.contains('scrolldown')) {
-                    container.current.className =
-                        container.current.className.replace(' scrolldown', '');
-                }
-                if (container.current.classList.contains('scrollup')) {
-                    return;
-                }
-                if (left.current.classList.contains('translateY_0')) {
-                    left.current.className = left.current.className.replace(
-                        ' translateY_0',
-                        '',
-                    );
-                }
-                if (left.current.classList.contains('translateY_25')) {
-                    return;
-                }
+                if (container.current != null) {
+                    if (container.current.classList.contains('scrolldown')) {
+                        container.current.className =
+                            container.current.className.replace(
+                                ' scrolldown',
+                                '',
+                            );
+                    }
+                    if (container.current.classList.contains('scrollup')) {
+                        return;
+                    }
+                    if (left.current.classList.contains('translateY_0')) {
+                        left.current.className = left.current.className.replace(
+                            ' translateY_0',
+                            '',
+                        );
+                    }
+                    if (left.current.classList.contains('translateY_25')) {
+                        return;
+                    }
 
-                left.current.className += ' translateY_25';
-                container.current.className += ' scrollup';
+                    left.current.className += ' translateY_25';
+                    container.current.className += ' scrollup';
+                }
             }
         });
+        return () => window.removeEventListener('wheel', function (e) {});
     }, []);
     return (
         <div className={nav.container} ref={container}>
