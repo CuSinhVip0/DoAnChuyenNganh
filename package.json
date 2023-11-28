@@ -1,5 +1,5 @@
 {
-  "name": "do_an_chuyen_nganh",
+  "name": "do_an_cn",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookies-next": "^4.1.0",
+    "mysql2": "^3.6.3",
+    "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.1"
+    "react-icons": "^4.12.0",
+    "uuid": "^9.0.1"
   }
 }

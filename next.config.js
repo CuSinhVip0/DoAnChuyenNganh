@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
-  }
-  module.exports = {
+};
+module.exports = {
     future: {
-      webpack5: true,
+        webpack5: true,
     },
-  }
-  
-  module.exports = nextConfig
+};
+
+module.exports = nextConfig;

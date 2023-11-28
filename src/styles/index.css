@@ -1,0 +1,51 @@
+html {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+hr {
+    margin: 0;
+    height: 1px;
+}
+
+.unvalid {
+    border-color: red !important;
+}
+
+.ml_4 {
+    margin-left: 4px;
+}
+.ptb_12 {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.scrollup {
+    top: -15% !important;
+    transition: top 0.5s;
+}
+.scrolldown {
+    top: 0% !important;
+    transition: top 0.5s;
+}
+
+.translateY_25 {
+    transform: translateY(25%);
+    transition: transform 0.5s;
+}
+
+.translateY_0 {
+    transform: translateY(0%);
+    transition: transform 0.5s;
+}
