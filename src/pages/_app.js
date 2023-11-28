@@ -1,4 +1,4 @@
-import "../styles/index.css";
+import "@/pages/styles/index.css";
 export default function MyApp({ Component, pageProps, example }) {
     return (
         <>

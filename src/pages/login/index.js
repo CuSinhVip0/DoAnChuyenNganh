@@ -1,7 +1,6 @@
-// pages/login.js
 import { useRef, useState } from "react";
 import Head from "next/head";
-import login from "@/styles/login.module.css";
+import login from "@/pages/styles/login.module.css";
 
 export default function LoginPage() {
   const usernameRef = useRef();

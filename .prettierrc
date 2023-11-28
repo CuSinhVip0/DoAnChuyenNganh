@@ -1,0 +1,24 @@
+{
+    "overrides": [
+      {
+        "files": "*.js",
+        "options": {
+          "arrowParens": "always",
+          "singleQuote": true,
+          "trailingComma": "all",
+          "bracketSpacing": false,
+          "bracketSameLine": false,
+          "tabWidth": 4,
+          "printWidth": 80,
+          "semi": true,
+          "htmlWhitespaceSensitivity": "strict"
+        }
+      },
+      {
+        "files": "*.css",
+        "options": {
+          "tabWidth": 4
+        }
+      }
+    ]
+  }
