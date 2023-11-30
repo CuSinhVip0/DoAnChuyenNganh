@@ -1,0 +1,56 @@
+.right_mouth {
+    display: flex;
+    justify-content: center;
+}
+
+.mouth_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+}
+
+.mouth_container p {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+.mouth_container_icon {
+    color: #00b5f1;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.right_day {
+}
+
+.day_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.day_item {
+    box-sizing: border-box;
+    padding: 20px;
+    flex-basis: calc(100% / 7);
+    text-align: center;
+    border-top: 1px solid #e6bb7b;
+    border-right: 0.5px solid #e6bb7b;
+    border-left: 0.5px solid #e6bb7b;
+}
+
+.date_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.date_item {
+    box-sizing: border-box;
+    padding: 20px;
+    flex-basis: calc(100% / 7);
+    text-align: center;
+    border-top: 1px solid #e6bb7b;
+    border-right: 0.5px solid #e6bb7b;
+    border-left: 0.5px solid #e6bb7b;
+}
