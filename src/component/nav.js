@@ -1,26 +1,27 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import nav from '@/styles/nav/index.module.css';
 import logo from '../../public/image/logo2.png';
 import user from '../../public/user.svg';
 import {FaCaretDown} from 'react-icons/fa';
 import {FiLogOut} from 'react-icons/fi';
-
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
 
 export default function Nav({hascookie}) {
+    const [doLogin, setDologin] = useState(hascookie);
     const container = useRef();
     const left = useRef();
 
     const router = useRouter();
+
     const handleLogout = () => {
         // Xóa cookie 'id_nguoidung'
         deleteCookie('id_nguoidung');
-        router.reload();
+        router.replace(router.pathname);
+        setDologin(false);
     };
-    console.dir(container);
 
     useEffect(() => {
         //xử lý sự kiện khi lăn chuột của navbar
@@ -95,7 +96,7 @@ export default function Nav({hascookie}) {
                 <div className={nav.right}>
                     <div className={nav.up}>
                         <ul className={nav.up_items}>
-                            {!hascookie ? (
+                            {!doLogin ? (
                                 <>
                                     <li
                                         className={[nav.up_item, 'ptb_12'].join(
