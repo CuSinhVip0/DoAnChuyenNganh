@@ -2,16 +2,13 @@ import Nav from '@/component/nav';
 import Head from 'next/head';
 import Link from 'next/link';
 import style from '@/styles/datLich/chonKhoa.module.css';
-import chonNgay from '@/styles/datLich/chonNgay.module.css';
+import chonGio from '@/styles/datLich/chonGio.module.css';
+import {FaClock} from 'react-icons/fa6';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FaHospitalAlt} from 'react-icons/fa';
-import {
-    FaBriefcaseMedical,
-    FaCircleChevronLeft,
-    FaCircleChevronRight,
-} from 'react-icons/fa6';
+import {FaBriefcaseMedical} from 'react-icons/fa6';
 import {AiOutlineRollback} from 'react-icons/ai';
-import {useRef, useEffect} from 'react';
+import {useRef} from 'react';
 import {useRouter} from 'next/router';
 import {hasCookie} from 'cookies-next';
 
@@ -24,68 +21,10 @@ function Page(props) {
     const router = useRouter();
     const dateRef = useRef();
 
-    //ngay thang nam hien tai
-    const d = new Date();
-    var year = d.getFullYear();
-    var month = d.getMonth() + 1;
-
-    //lay so ngay trong thang
-    const date = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
-
-    //thu cua ngay dau tien trong thang
-    var day = new Date(`${year}-${month}-1`).getDay();
-    if (day == 0) day = 7;
-
-    function showDate() {
-        //check ngay thu 7 trong bang
-        var day_is_7 = 1;
-        //xu ly truoc
-        var day_truoc = new Date(year, month - 1, 0).getDate();
-        for (var i = day_truoc - day + 2; i <= day_truoc; i++) {
-            dateRef.current.innerHTML += ` <li class='${
-                chonNgay.date_item
-            } font_color_b3b7ba ${day_is_7 == 7 ? 'border_right_non' : ''}'  >
-            ${i}
-            
-        </li>`;
-            day_is_7++;
-            if (day_is_7 == 8) day_is_7 = 1;
-        }
-
-        //xu lys ngay trong thang
-        var day_hientai = d.getDate();
-        for (var i = 1; i <= date; i++) {
-            dateRef.current.innerHTML += ` <li class='${chonNgay.date_item} ${
-                i <= day_hientai ? 'font_color_b3b7ba' : 'item_hover'
-            } ${day_is_7 == 7 ? 'border_right_non' : ''}'>
-            ${i}
-        </li>`;
-            day_is_7++;
-            if (day_is_7 == 8) day_is_7 = 1;
-        }
-
-        //xy ly sau
-        var date_sau = new Date(`${year}-${month}-${date}`).getDay();
-        if (date_sau == 0) {
-            date_sau = 7;
-        }
-        for (var i = 1; i <= 7 - date_sau; i++) {
-            dateRef.current.innerHTML += ` <li class='${
-                chonNgay.date_item
-            } font_color_b3b7ba ${day_is_7 == 7 ? 'border_right_non' : ''}'>
-            ${i}
-        </li>`;
-            day_is_7++;
-            if (day_is_7 == 8) day_is_7 = 1;
-        }
-    }
-    useEffect(() => {
-        showDate();
-    }, []);
     return (
         <>
             <Head>
-                <title>Đặt lịch khám bệnh - Chọn khoa khám</title>
+                <title>Đặt lịch khám bệnh - Chọn giờ khám</title>
             </Head>
             <Nav hascookie={props.hascookie} />
             <div className={style.wrapper}>
@@ -103,11 +42,12 @@ function Page(props) {
                             Chọn chuyên khoa
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
+                        <Link className={style.route_link}>Chọn ngày khám</Link>
                         <Link
                             className={`${style.route_link} font_color_1da1f2`}
                             href={''}
                         >
-                            Chọn ngày khám
+                            Chọn giờ khám
                         </Link>
                     </div>
 
@@ -147,6 +87,14 @@ function Page(props) {
                                                 <p>Chuyên khoa: Tai mũi họng</p>
                                             </div>
                                         </li>
+                                        <li className={style.left_body_item}>
+                                            <div className={style.item_icon}>
+                                                <FaClock className={'w20_hf'} />
+                                            </div>
+                                            <div className={style.item_content}>
+                                                <p>Ngày khám: 01-12-2023</p>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -158,60 +106,58 @@ function Page(props) {
                                 <div
                                     className={` ${style.title} text_align_center`}
                                 >
-                                    Chọn ngày khám
+                                    Chọn giờ khám
                                 </div>
-                                <div className={chonNgay.right_mouth}>
-                                    <div className={chonNgay.mouth_container}>
-                                        <FaCircleChevronLeft
-                                            className={
-                                                chonNgay.mouth_container_icon
-                                            }
-                                        />
-                                        <p>
-                                            THÁNG {month}, {year}
-                                        </p>
-                                        <FaCircleChevronRight
-                                            className={
-                                                chonNgay.mouth_container_icon
-                                            }
-                                        />
+                                <div className={chonGio.container}>
+                                    <div className={chonGio.container_content}>
+                                        <div className={chonGio.title}>
+                                            Buổi sáng
+                                        </div>
+                                        <div className={chonGio.items}>
+                                            <ul>
+                                                <li className={chonGio.item}>
+                                                    07:00 - 08:00
+                                                </li>{' '}
+                                                <li className={chonGio.item}>
+                                                    07:00 - 08:00
+                                                </li>
+                                                <li className={chonGio.item}>
+                                                    08:00 - 09:00
+                                                </li>
+                                                <li className={chonGio.item}>
+                                                    09:00 - 10:00
+                                                </li>
+                                                <li className={chonGio.item}>
+                                                    10:00 - 11:00
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <hr className="linear_00b5f1_00e0ff_36 border_non mtb_20 h2"></hr>
+                                    <div className={chonGio.container_content}>
+                                        <div className={chonGio.title}>
+                                            Buổi chiều
+                                        </div>
+                                        <div className={chonGio.items}>
+                                            <ul>
+                                                <li className={chonGio.item}>
+                                                    07:00 - 08:00
+                                                </li>
+                                                <li className={chonGio.item}>
+                                                    08:00 - 09:00
+                                                </li>
+                                                <li className={chonGio.item}>
+                                                    09:00 - 10:00
+                                                </li>
+                                                <li className={chonGio.item}>
+                                                    10:00 - 11:00
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div className={chonNgay.right_day}>
-                                    <ul className={chonNgay.day_container}>
-                                        <li className={chonNgay.day_item}>
-                                            Hai
-                                        </li>
-                                        <li className={chonNgay.day_item}>
-                                            Ba
-                                        </li>
-                                        <li className={chonNgay.day_item}>
-                                            Tư
-                                        </li>
-                                        <li className={chonNgay.day_item}>
-                                            Năm
-                                        </li>
-                                        <li className={chonNgay.day_item}>
-                                            Sáu
-                                        </li>
-                                        <li className={chonNgay.day_item}>
-                                            Bảy
-                                        </li>
-                                        <li
-                                            className={`${chonNgay.day_item} border_right_non`}
-                                        >
-                                            Chủ nhật
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className={chonNgay.right_date}>
-                                    <ul
-                                        className={chonNgay.date_container}
-                                        ref={dateRef}
-                                    ></ul>
-                                </div>
                             </div>
+
                             <button
                                 className={style.right_button}
                                 onClick={() => router.back()}

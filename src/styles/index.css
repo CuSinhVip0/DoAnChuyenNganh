@@ -26,11 +26,22 @@ hr {
     border-color: red !important;
 }
 
+/* heigt -width */
+.h2 {
+    height: 2px;
+}
+
 .w20_hf {
     width: 20px;
     height: fit-content;
 }
-
+/* end heigt - width */
+.mt_40 {
+    margin-top: 40px;
+}
+.mt_20 {
+    margin-top: 20px;
+}
 .mlr_4px {
     margin: 0px 4px;
 }
@@ -42,9 +53,15 @@ hr {
 .ml_4 {
     margin-left: 4px;
 }
+.mr_4 {
+    margin-right: 4px;
+}
 .ptb_12 {
     padding-top: 13px;
     padding-bottom: 13px;
+}
+.mtb_20 {
+    margin: 20px 0;
 }
 /* animation */
 .scrollup {
@@ -68,6 +85,13 @@ hr {
 /* end animation */
 
 /* font */
+.font_weight_600 {
+    font-weight: 600 !important;
+}
+
+.font_color_b3b7ba {
+    color: #b3b7ba !important;
+}
 
 .font_size_14 {
     font-size: 14px !important;
@@ -90,3 +114,22 @@ hr {
 .cursor {
     cursor: pointer;
 }
+
+.item_hover:hover {
+    background-color: #00d5fc;
+}
+
+.border_right_non {
+    border-right: none !important;
+}
+.border_non {
+    border: none !important;
+}
+
+/* background */
+
+.linear_00b5f1_00e0ff_36 {
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+}
+
+/* end background */

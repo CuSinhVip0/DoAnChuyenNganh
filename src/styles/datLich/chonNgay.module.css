@@ -37,7 +37,7 @@
     text-align: center;
     border-top: 1px solid #e6bb7b;
     border-right: 0.5px solid #e6bb7b;
-    border-left: 0.5px solid #e6bb7b;
+    background-color: #fcf061;
 }
 
 .date_container {
@@ -49,8 +49,9 @@
     box-sizing: border-box;
     padding: 20px;
     flex-basis: calc(100% / 7);
+    color: #003553;
+    font-weight: 500;
     text-align: center;
     border-top: 1px solid #e6bb7b;
     border-right: 0.5px solid #e6bb7b;
-    border-left: 0.5px solid #e6bb7b;
 }
