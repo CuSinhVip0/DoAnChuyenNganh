@@ -2,7 +2,6 @@ import mysql from "mysql2/promise";
 import bcrypt from "bcrypt";
 
 export default async function handler(req, res) {
-
     const connection = await mysql.createConnection({
         host: "localhost",
         user: "root",

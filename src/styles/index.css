@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
 html {
     font-family: "Plus Jakarta Sans", sans-serif;
+    color: #003553;
 }
 
 body {
@@ -23,6 +26,19 @@ hr {
     border-color: red !important;
 }
 
+.w20_hf {
+    width: 20px;
+    height: fit-content;
+}
+
+.mlr_4px {
+    margin: 0px 4px;
+}
+
+.mlr_20 {
+    margin: 0px 20px;
+}
+
 .ml_4 {
     margin-left: 4px;
 }
@@ -30,13 +46,13 @@ hr {
     padding-top: 13px;
     padding-bottom: 13px;
 }
-
+/* animation */
 .scrollup {
-    top: -15% !important;
+    top: -67.5px !important;
     transition: top 0.5s;
 }
 .scrolldown {
-    top: 0% !important;
+    top: 0px !important;
     transition: top 0.5s;
 }
 
@@ -48,4 +64,29 @@ hr {
 .translateY_0 {
     transform: translateY(0%);
     transition: transform 0.5s;
+}
+/* end animation */
+
+/* font */
+
+.font_size_14 {
+    font-size: 14px !important;
+}
+
+.font_color_1da1f2 {
+    color: #1da1f2 !important;
+}
+
+.font_color_858585 {
+    color: #858585 !important;
+}
+
+.text_align_center {
+    text-align: center;
+}
+
+/* end font */
+
+.cursor {
+    cursor: pointer;
 }

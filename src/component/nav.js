@@ -1,71 +1,84 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import nav from '@/styles/nav/index.module.css';
 import logo from '../../public/image/logo2.png';
 import user from '../../public/user.svg';
 import {FaCaretDown} from 'react-icons/fa';
 import {FiLogOut} from 'react-icons/fi';
-
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
 
 export default function Nav({hascookie}) {
+    const [doLogin, setDologin] = useState(hascookie);
     const container = useRef();
     const left = useRef();
 
     const router = useRouter();
+
     const handleLogout = () => {
         // Xóa cookie 'id_nguoidung'
         deleteCookie('id_nguoidung');
-        router.reload();
+        router.replace(router.pathname);
+        setDologin(false);
     };
 
     useEffect(() => {
         //xử lý sự kiện khi lăn chuột của navbar
         window.addEventListener('wheel', function (event) {
             if (event.deltaY < 0) {
-                if (container.current.classList.contains('scrollup')) {
-                    container.current.className =
-                        container.current.className.replace(' scrollup', '');
-                }
-                if (container.current.classList.contains('scrolldown')) {
-                    return;
-                }
-                if (left.current.classList.contains('translateY_25')) {
-                    left.current.className = left.current.className.replace(
-                        ' translateY_25',
-                        '',
-                    );
-                }
-                if (left.current.classList.contains('translateY_0')) {
-                    return;
-                }
+                if (container.current != null) {
+                    if (container.current.classList.contains('scrollup')) {
+                        container.current.className =
+                            container.current.className.replace(
+                                ' scrollup',
+                                '',
+                            );
+                    }
+                    if (container.current.classList.contains('scrolldown')) {
+                        return;
+                    }
+                    if (left.current.classList.contains('translateY_25')) {
+                        left.current.className = left.current.className.replace(
+                            ' translateY_25',
+                            '',
+                        );
+                    }
+                    if (left.current.classList.contains('translateY_0')) {
+                        return;
+                    }
 
-                left.current.className += ' translateY_0';
-                container.current.className += ' scrolldown';
+                    left.current.className += ' translateY_0';
+                    container.current.className += ' scrolldown';
+                }
             } else if (event.deltaY > 0) {
-                if (container.current.classList.contains('scrolldown')) {
-                    container.current.className =
-                        container.current.className.replace(' scrolldown', '');
-                }
-                if (container.current.classList.contains('scrollup')) {
-                    return;
-                }
-                if (left.current.classList.contains('translateY_0')) {
-                    left.current.className = left.current.className.replace(
-                        ' translateY_0',
-                        '',
-                    );
-                }
-                if (left.current.classList.contains('translateY_25')) {
-                    return;
-                }
+                if (container.current != null) {
+                    if (container.current.classList.contains('scrolldown')) {
+                        container.current.className =
+                            container.current.className.replace(
+                                ' scrolldown',
+                                '',
+                            );
+                    }
+                    if (container.current.classList.contains('scrollup')) {
+                        return;
+                    }
+                    if (left.current.classList.contains('translateY_0')) {
+                        left.current.className = left.current.className.replace(
+                            ' translateY_0',
+                            '',
+                        );
+                    }
+                    if (left.current.classList.contains('translateY_25')) {
+                        return;
+                    }
 
-                left.current.className += ' translateY_25';
-                container.current.className += ' scrollup';
+                    left.current.className += ' translateY_25';
+                    container.current.className += ' scrollup';
+                }
             }
         });
+        return () => window.removeEventListener('wheel', function (e) {});
     }, []);
     return (
         <div className={nav.container} ref={container}>
@@ -83,7 +96,7 @@ export default function Nav({hascookie}) {
                 <div className={nav.right}>
                     <div className={nav.up}>
                         <ul className={nav.up_items}>
-                            {!hascookie ? (
+                            {!doLogin ? (
                                 <>
                                     <li
                                         className={[nav.up_item, 'ptb_12'].join(

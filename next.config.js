@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+<<<<<<< HEAD
     reactStrictMode: true,
+=======
+    reactStrictMode: false,
+    compiler: {
+        styledComponents: true,
+    },
+>>>>>>> main
 };
 module.exports = {
     future: {
