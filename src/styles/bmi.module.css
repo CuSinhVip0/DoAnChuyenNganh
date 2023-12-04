@@ -1,0 +1,101 @@
+
+/* Thêm style cho container của form */
+.bmi_title{
+    color: #0095ff;
+    font-size: 20px;
+    width: 1140px;
+    margin: auto; 
+    padding: 20px; 
+    background-color: white;
+}
+
+
+.bmi_form_container {
+    margin: auto;
+    width: 1140px;
+    display: flex;
+    justify-content: space-around;
+}
+.bmi_buttonform {
+    width: 1140px;
+    margin: auto;
+}
+
+
+
+.bmi_form {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    margin: 10px;
+}
+
+.bmi_form label {
+    color: #0095ff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.bmi_result {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    margin: 10px;
+}
+
+.bmi_result button {
+    margin-bottom: 10px;
+    
+}
+  
+.bmi_button{
+    
+    border: 1px solid transparent;
+    background-color: #0095ff;
+    color: white;
+    box-shadow: rgba(255, 255, 255, 4) 1px 0 0 inset;
+    border-radius: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 10px;
+    outline: none;
+    padding: 15px 2em;
+    position: relative;
+}
+
+.bmi_button:hover, 
+.bmi_button:focus{
+    background-color: #07c;
+
+}
+
+.bmi_button:focus{
+    box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.bmi_button:active{
+    background-color: #0064bd;
+    box-shadow: none;
+}
+
+.gender_container{
+    display: flex;
+    margin-left: 10px;
+}
+
+.gender_container input{
+    margin-right: 5px;
+}
+
+.gender_container label {
+    color: #0095ff;
+    display: block;
+    margin-bottom: 10px;
+}
