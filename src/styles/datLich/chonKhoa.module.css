@@ -1,4 +1,6 @@
 .wrapper {
+    min-height: 65vh;
+    background: #e8f2f7;
     width: 100%;
     padding-top: 150px;
     display: flex;
@@ -7,6 +9,7 @@
 
 .container {
     width: 1140px;
+    min-height: 65vh;
 }
 
 .route {
@@ -34,8 +37,9 @@
 
 .left_container,
 .right_container {
-    background-color: #fffaa7;
+    background-color: #e8f2f7;
     border-radius: 12px;
+    
 }
 
 .title {
@@ -67,9 +71,13 @@
 
 .right {
     flex: 3;
+    
+    
 }
 .right_body {
     padding: 20px;
+    
+    
 }
 
 .search_input {

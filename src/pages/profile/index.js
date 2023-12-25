@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import style from '@/styles/profile/profile.module.css';
 import {MdKeyboardArrowRight} from 'react-icons/md';
-import {FaHospitalAlt} from 'react-icons/fa';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faUserPlus, faAddressBook} from '@fortawesome/free-solid-svg-icons';
 
 import {hasCookie} from 'cookies-next';
 import React, {useState} from 'react';
@@ -77,8 +78,19 @@ function Page(props) {
                         <div className={style.left}>
                             <div className={style.tab_btn}>
                                 <button onClick={handleAddProfileClick}>
+                                    <FontAwesomeIcon
+                                        icon={faUserPlus}
+                                        className={style.icon_add}
+                                    />
                                     Thêm hồ sơ
                                 </button>
+                                <p className={style.tab_item}>
+                                    <FontAwesomeIcon
+                                        icon={faAddressBook}
+                                        className={style.icon_profile}
+                                    />
+                                    Hồ sơ bệnh nhân
+                                </p>
                             </div>
                         </div>
 

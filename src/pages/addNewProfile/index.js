@@ -44,16 +44,19 @@ function Page(props) {
 
                     <div className={style.content}>
                         <div className={style.title_add}>
-                            <h2>Tạo mới hồ sơ</h2>
+                            <h2>TẠO MỚI HỒ SƠ</h2>
                         </div>
-
-                        <div>
-                            <button onClick={() => handleButtonClick(true)}>
-                                Đã từng khám
-                            </button>
-                            <button onClick={() => handleButtonClick(false)}>
-                                Chưa từng khám
-                            </button>
+                        <div className={style.nav_wrap}>
+                            <div className={style.add_patient}>
+                                <button onClick={() => handleButtonClick(true)}>
+                                    Đã từng khám
+                                </button>
+                                <button
+                                    onClick={() => handleButtonClick(false)}
+                                >
+                                    Chưa từng khám
+                                </button>
+                            </div>
                         </div>
 
                         {/* Hiển thị form tương ứng với lựa chọn của người dùng */}

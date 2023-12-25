@@ -1,4 +1,6 @@
 .wrapper {
+    min-height: 65vh;
+background: #e8f2f7;
     width: 100%;
     padding-top: 150px;
     display: flex;
@@ -34,7 +36,7 @@
 
 .left_container,
 .right_container {
-    background-color: #fffaa7;
+    background-color: #e8f2f7;
     border-radius: 12px;
 }
 
@@ -142,4 +144,21 @@
     padding-bottom: 28px;
     border-bottom: 1px solid #e3e3e3;
     background: #fff;
+}
+
+.title_add h2{
+    color: #00b5f1;
+    background: linear-gradient(83.63deg,#00b5f1 33.34%,#00e0ff 113.91%);
+    background-clip: text;
+    color: transparent;
+    font-size: 39px;
+    font-family: Montserrat,sans-serif!important;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.nav_wrap{
+    display: flex;
+    flex: auto;
 }
