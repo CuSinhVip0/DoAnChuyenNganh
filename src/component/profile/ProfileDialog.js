@@ -7,12 +7,12 @@ import {
     faVenusMars,
     faIdCard,
     faMapMarkerAlt,
+    faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import styles from '@/styles/profile/ProfileDialog.module.css';
 
 const ProfileDialog = ({data, onClose}) => {
     const handleOverlayClick = (e) => {
-        // Check if the click occurred outside the dialog content
         if (e.target.classList.contains(styles.dialog_container)) {
             onClose();
         }
@@ -72,6 +72,17 @@ const ProfileDialog = ({data, onClose}) => {
                             </span>
                             <strong>BHYT:</strong>
                         </p>
+
+                        <p>
+                            <span>
+                                <FontAwesomeIcon
+                                    icon={faEnvelope}
+                                    className={styles.custom_icon}
+                                />
+                            </span>
+                            <strong>Email:</strong>
+                        </p>
+
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -88,6 +99,7 @@ const ProfileDialog = ({data, onClose}) => {
                         <p>{data.sdt}</p>
                         <p>{data.gioiTinh}</p>
                         <p>{data.bhyt}</p>
+                        <p>{data.email}</p>
                         <p>{data.diaChi}</p>
                     </div>
                 </div>

@@ -17,6 +17,9 @@ export const getServerSideProps = ({req, res}) => {
 };
 
 function Page(props) {
+    const handleAddProfileClick = () => {
+        window.location.href = '/addNewProfile';
+    };
     const [patientData, setPatientData] = useState({
         id: 1,
         hoTen: 'Nguyen Van A',
@@ -29,7 +32,9 @@ function Page(props) {
         danToc: 'Kinh',
     });
 
-    const handleEdit = () => {};
+    const handleEdit = () => {
+        window.location.href = '/editprofile';
+    };
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const handleDelete = () => {
         const {id} = patientData;
@@ -70,32 +75,10 @@ function Page(props) {
 
                     <div className={style.content}>
                         <div className={style.left}>
-                            <div className={style.left_container}>
-                                <div className={style.title}>
-                                    Thông tin đặt lịch khám
-                                </div>
-                                <div className={style.left_body}>
-                                    <ul>
-                                        <li className={style.left_body_item}>
-                                            <div className={style.item_icon}>
-                                                <FaHospitalAlt
-                                                    className={'w20_hf'}
-                                                />
-                                            </div>
-                                            <div className={style.item_content}>
-                                                <p>
-                                                    Bệnh viện Đại học Y Dược
-                                                    TP.HCM
-                                                </p>
-                                                <p className="font_color_858585 font_size_14">
-                                                    Cơ sở 201 Nguyễn Chí Thanh,
-                                                    Phường 12, Quận 5, TP. Hồ
-                                                    Chí Minh
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div className={style.tab_btn}>
+                                <button onClick={handleAddProfileClick}>
+                                    Thêm hồ sơ
+                                </button>
                             </div>
                         </div>
 

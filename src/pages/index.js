@@ -18,7 +18,6 @@ export default function Page(props) {
                 <br />
                 <Link href={'/profile'}> Ho so benh nhan</Link>
                 <br />
-                <Link href={'/editprofile'}> Ấn sửa hồ sơ (chưa xử lý)</Link>
                 <br />
             </div>
         </>

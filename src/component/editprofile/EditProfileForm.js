@@ -137,6 +137,17 @@ const EditProfileForm = () => {
                 </div>
 
                 <div className={styles.row}>
+                    <label>Địa chỉ Email</label>
+                    <input
+                        type="text"
+                        name="address"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className={styles.row}>
                     <label>Địa chỉ *</label>
                     <input
                         type="text"
@@ -146,10 +157,61 @@ const EditProfileForm = () => {
                         required
                     />
                 </div>
-                <div className={styles.btn_wrapper}>
-                    <button type="submit">Cập nhật</button>
+            </form>
+
+            <div className={styles.line}></div>
+
+            <h2>Nhập thông tin nhân thân</h2>
+
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.row}>
+                    <label>Họ và tên nguời thân *</label>
+                    <input
+                        type="text"
+                        name="fullName"
+                        value={formData.hoTenNT}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className={styles.row}>
+                    <label>Quan hệ với bệnh nhân *</label>
+                    <input
+                        type="text"
+                        name="fullName"
+                        value={formData.patientRelation}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className={styles.row}>
+                    <label>Số điện thoại *</label>
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        value={formData.sdtNT}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className={styles.row}>
+                    <label>Địa chỉ Email</label>
+                    <input
+                        type="text"
+                        name="address"
+                        value={formData.emailNT}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
             </form>
+
+            <div className={styles.btn_wrapper}>
+                <button type="submit">Cập nhật</button>
+            </div>
         </div>
     );
 };
