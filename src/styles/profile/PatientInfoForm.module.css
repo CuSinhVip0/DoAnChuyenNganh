@@ -1,0 +1,57 @@
+.form_container {
+    border-radius: 16px;
+    border: 1px solid #fff; 
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    position: relative;
+  }
+
+.container{ 
+    height: 35px;
+    margin: 0px;
+}
+
+.container label {
+    display: inline-block;
+    width: 150px; 
+  }
+
+  .container p {
+    display: inline-block;
+    margin-left: 2px; 
+  }
+
+  .action_buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 12px 20px;
+
+    
+  }
+
+  .action_buttons button{
+    border: none;
+    background-color: #fff;
+    padding: .2px;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .btn_edit{
+    color: #00b5f1;
+  }
+
+  .btn_delete{
+    color: #ff3b30;
+  }
+  .form_container span {
+    width: 28px;
+    height: 18px;
+    display: inline-block; 
+  }
+  .custom_icon {
+    color: #b4b4b4; 
+    margin-right: 5px ;
+  }

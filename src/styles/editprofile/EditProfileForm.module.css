@@ -1,0 +1,104 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.container h2{
+    text-align: center;
+    width: 100%;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 28px;
+    color: var(--primary-body-text,#003553);     
+}
+
+.container p{
+    padding: 20px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #11a2f3;
+    margin-bottom: 28px;
+    border-radius: 8px;
+    border: 1px solid #c1d5e9;
+    background: #d4e9ff;   
+}  
+
+.form {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0,0,0,.85);
+    font-size: 20px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+}
+  
+
+
+
+.form  label {
+    font-weight: bold;
+  }
+  
+.row{
+    margin: 15px;
+}  
+
+.row input {
+    display: flex;
+    width: 50%;
+    height: 50px;
+    padding: 15px 16px 16px;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+}
+  
+.row select{
+    display: flex;
+    width: 50%;
+     border-radius: 10px;
+     padding: 0 11px;
+     min-height: 50px;
+     border: 1px solid #d9d9d9;
+}
+
+.date_fields{
+    display: flex!important;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.date_fields select{
+    width: 120px;
+}
+
+.btn_wrapper{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.btn_wrapper  button {
+    color: #fff;
+    background: var(--primary-gradient-title,linear-gradient(40deg,#00b5f1 0,#00e0ff 100%));
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 10px 0;
+    width: 121px;
+    border: none;
+    
+  } 

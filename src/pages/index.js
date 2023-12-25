@@ -12,7 +12,14 @@ export default function Page(props) {
 
             <Nav hascookie={props.hascookie} />
             <div style={{marginTop: '300px'}}>
-                <Link href={'/dat-lich/chon-khoa'}>Đặt lịch</Link>
+                <Link href={'/dat-lich/chon-khoa'}> Đặt lịch</Link>
+                <br />
+                <Link href={'/bmi'}> BMI</Link>
+                <br />
+                <Link href={'/profile'}> Ho so benh nhan</Link>
+                <br />
+                <Link href={'/editprofile'}> Ấn sửa hồ sơ (chưa xử lý)</Link>
+                <br />
             </div>
         </>
     );

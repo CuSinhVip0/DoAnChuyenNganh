@@ -1,0 +1,54 @@
+.wrapper {
+    width: 100%;
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 1140px;
+}
+
+.route {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.route_link {
+    font-size: 16px;
+    color: #003553;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.content {
+    max-width: 1140px;
+    width: 100%;
+    margin: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 38px;
+}
+
+
+
+
+
+
+
+
+
+.result_item {
+    padding: 15px 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-top: 1px solid #e6bb7b;
+    cursor: pointer;
+}
+
+.result_item:hover {
+    color: #00a8ff;
+}
+
