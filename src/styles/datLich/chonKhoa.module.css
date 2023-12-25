@@ -3,6 +3,8 @@
     padding-top: 150px;
     display: flex;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .container {
@@ -25,7 +27,7 @@
 .content {
     display: flex;
     flex-direction: row;
-    gap: 40px;
+    gap: 36px;
 }
 
 .left {
@@ -134,6 +136,13 @@
     border-top: 1px solid #e6bb7b;
     cursor: pointer;
 }
+.result_item_link {
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: #003553;
+    padding: 15px 0;
+}
 
 .result_item:hover {
     color: #00a8ff;
@@ -168,6 +177,7 @@
 .right_button_right {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-top: 20px;
     font-size: 16px;
     font-family: inherit;
@@ -178,8 +188,39 @@
     background: linear-gradient(36deg, #00b5f1, #00e0ff);
     color: white;
     cursor: pointer;
+    min-height: 37px;
+    min-width: 115.2px;
 }
 
 .right_button_right:hover {
     background: linear-gradient(80deg, #00e0ff, #00b5f1);
+}
+
+.skeleton {
+    padding: 12px 16px;
+    margin: 0 12px 24px;
+    animation: loading 1s linear infinite;
+}
+@keyframes loading {
+    from {
+        background-color: hsl(200, 20%, 80%);
+    }
+    to {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+
+.noti {
+    width: 200px;
+    padding: 20px 30px;
+    position: absolute;
+    top: 15%;
+    left: 100%;
+    z-index: 10;
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }

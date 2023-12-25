@@ -1,18 +1,36 @@
 import style from '@/styles/component/updateinfor.module.css';
-import {useEffect, useState, useRef} from 'react';
+import {useEffect, useState, useRef, memo} from 'react';
 import {FaAngleDown} from 'react-icons/fa6';
 import data from '../../public/data/data.json';
-function UpdateInfor({ref_form}) {
+
+function UpdateInfor({ref_form, user}) {
     const [p, setP] = useState([]);
     const provide = useRef();
     const district = useRef();
     const subdis = useRef();
-    console.log(p);
+
     useEffect(() => {
         data.forEach((element) => {
             provide.current.innerHTML += `<option value=${element.Id}>${element.Name}</option>`;
         });
+        if (user.result[0].dia_chi == null) return;
+
+        const diachi = user.result[0].dia_chi.split(', ');
+
+        provide.current.value = diachi[diachi.length - 1];
+        const tam = data.find((element) => element.Id == provide.current.value);
+
+        setP(tam);
+        showDistrict(tam);
+        district.current.value = diachi[diachi.length - 2];
+        const tam2 = tam.Districts.find(
+            (element) => element.Id == district.current.value,
+        );
+
+        showSubDistrict(tam2);
+        subdis.current.value = diachi[diachi.length - 3];
     }, []);
+
     function showDistrict(tam) {
         district.current.innerHTML = '';
         district.current.innerHTML +=
@@ -27,14 +45,13 @@ function UpdateInfor({ref_form}) {
             subdis.current.innerHTML += `<option value=${element.Id}>${element.Name}</option>`;
         });
     }
-
     return (
         <>
-            <div className={style.container}>
-                <form ref={ref_form}></form>
+            <form className={style.container} ref={ref_form}>
                 <div className={style.item}>
                     <div className={style.item_title}>Họ và tên (có dấu)</div>
                     <input
+                        defaultValue={user.result[0].ten}
                         type="text"
                         name="hoten"
                         className={style.item_input}
@@ -46,6 +63,10 @@ function UpdateInfor({ref_form}) {
                         Ngày sinh (năm/tháng/ngày)
                     </div>
                     <input
+                        defaultValue={
+                            user.result[0].ngay_sinh &&
+                            user.result[0].ngay_sinh.split('T')[0]
+                        }
                         type="date"
                         name="ngaysinh"
                         className={style.item_input}
@@ -54,6 +75,7 @@ function UpdateInfor({ref_form}) {
                 <div className={style.item}>
                     <div className={style.item_title}>Số điện thoại</div>
                     <input
+                        defaultValue={user.result[0].sdt}
                         type="text"
                         name="sodienthoai"
                         className={style.item_input}
@@ -64,7 +86,11 @@ function UpdateInfor({ref_form}) {
                     <div className={style.item_title}>Giới tính</div>
                     <div className={style.item_input_container}>
                         <FaAngleDown className={style.item_input_icon} />
-                        <select name="gioitinh" className={style.item_input}>
+                        <select
+                            name="gioitinh"
+                            defaultValue={user.result[0].gioi_tinh}
+                            className={style.item_input}
+                        >
                             <option value={'nam'}>Nam</option>
                             <option value={'nu'}>Nữ</option>
                             <option value={'khac'}>Khác</option>
@@ -74,8 +100,8 @@ function UpdateInfor({ref_form}) {
                 <div className={style.item}>
                     <div className={style.item_title}>Email</div>
                     <div className={style.item_input_container}>
-                        <FaAngleDown className={style.item_input_icon} />
                         <input
+                            defaultValue={user.result[0].email}
                             type="email"
                             name="email"
                             className={style.item_input}
@@ -87,6 +113,7 @@ function UpdateInfor({ref_form}) {
                     <div className={style.item_title}>Tỉnh / Thành</div>
                     <div className={style.item_input_container}>
                         <FaAngleDown className={style.item_input_icon} />
+
                         <select
                             onChange={() => {
                                 const tam = data.find(
@@ -118,7 +145,7 @@ function UpdateInfor({ref_form}) {
                                     (element) =>
                                         element.Id == district.current.value,
                                 );
-                                console.log(tam);
+
                                 showSubDistrict(tam);
                                 district.current[0].hidden = true;
                             }}
@@ -149,15 +176,25 @@ function UpdateInfor({ref_form}) {
                 <div className={style.item}>
                     <div className={style.item_title}>Số nhà</div>
                     <input
+                        defaultValue={
+                            user.result[0].ngay_sinh &&
+                            user.result[0].dia_chi
+                                .split(', ')
+                                .slice(
+                                    0,
+                                    user.result[0].dia_chi.split(', ').length -
+                                        3,
+                                )
+                        }
                         type="text"
                         name="sonha"
                         className={style.item_input}
                         placeholder="Vd: 123 ABC"
                     />
                 </div>
-            </div>
+            </form>
         </>
     );
 }
 
-export default UpdateInfor;
+export default memo(UpdateInfor);

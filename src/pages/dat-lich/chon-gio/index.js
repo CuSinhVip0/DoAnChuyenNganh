@@ -1,32 +1,68 @@
-import Nav from '@/component/nav';
 import Head from 'next/head';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
+import {hasCookie} from 'cookies-next';
+
+import {useEffect, useRef} from 'react';
+
 import style from '@/styles/datLich/chonKhoa.module.css';
 import chonGio from '@/styles/datLich/chonGio.module.css';
+
 import {FaClock} from 'react-icons/fa6';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FaHospitalAlt} from 'react-icons/fa';
 import {FaBriefcaseMedical} from 'react-icons/fa6';
 import {AiOutlineRollback} from 'react-icons/ai';
-import {useRef} from 'react';
-import {useRouter} from 'next/router';
-import {hasCookie} from 'cookies-next';
 
 export function getServerSideProps({req, res}) {
     const hascookie = hasCookie('id_nguoidung', {req, res});
     return {props: {hascookie}};
 }
-
 function Page(props) {
     const router = useRouter();
-    const dateRef = useRef();
+
+    // useEffect(() => {
+    //     const x = Object.entries(
+    //         JSON.parse(sessionStorage.getItem('query_lich')),
+    //     );
+    //     const x2 = x.filter((item) => item[0] != 'gio');
+    //     const x3 = x2.reduce((acc, [key, value]) => {
+    //         acc[key] = value;
+    //         return acc;
+    //     }, {});
+
+    //     sessionStorage.setItem('query_lich', JSON.stringify(x3));
+
+    //     router.push({
+    //         pathname: '/dat-lich/chon-gio',
+    //         query: JSON.parse(sessionStorage.getItem('query_lich')),
+    //     });
+    // }, []);
+
+    const handleAddTime = (time) => {
+        sessionStorage.setItem(
+            'query_lich',
+            JSON.stringify({
+                id_khoa: router.query.id_khoa,
+                ngay: router.query.ngay,
+                gio: time,
+            }),
+        );
+        router.push({
+            pathname: '/dat-lich/cap-nhat-thong-tin',
+            // query: {
+            //     ...JSON.parse(sessionStorage.getItem('query_lich')),
+            //     gio: time,
+            // },
+        });
+    };
 
     return (
         <>
             <Head>
                 <title>Đặt lịch khám bệnh - Chọn giờ khám</title>
             </Head>
-            <Nav hascookie={props.hascookie} />
+
             <div className={style.wrapper}>
                 <div className={style.container}>
                     <div className={style.route}>
@@ -38,11 +74,24 @@ function Page(props) {
                             Đặt lịch
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
-                        <Link className={style.route_link} href={''}>
+                        <Link
+                            className={style.route_link}
+                            href={'/dat-lich/chon-khoa'}
+                        >
                             Chọn chuyên khoa
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
-                        <Link className={style.route_link}>Chọn ngày khám</Link>
+                        <Link
+                            className={style.route_link}
+                            href={{
+                                pathname: '/dat-lich/chon-ngay',
+                                query: {id_khoa: router.query.id_khoa},
+                            }}
+                        >
+                            Chọn ngày khám
+                        </Link>
+                        <MdKeyboardArrowRight className="mlr_4px" />
+
                         <Link
                             className={`${style.route_link} font_color_1da1f2`}
                             href={''}
@@ -92,7 +141,10 @@ function Page(props) {
                                                 <FaClock className={'w20_hf'} />
                                             </div>
                                             <div className={style.item_content}>
-                                                <p>Ngày khám: 01-12-2023</p>
+                                                <p>
+                                                    Ngày khám:{' '}
+                                                    {router.query['id_ngay']}
+                                                </p>
                                             </div>
                                         </li>
                                     </ul>
@@ -115,20 +167,55 @@ function Page(props) {
                                         </div>
                                         <div className={chonGio.items}>
                                             <ul>
-                                                <li className={chonGio.item}>
-                                                    07:00 - 08:00
+                                                <li
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '07:00 - 07:30',
+                                                        )
+                                                    }
+                                                    className={chonGio.item}
+                                                >
+                                                    07:00 - 07:30
                                                 </li>{' '}
-                                                <li className={chonGio.item}>
-                                                    07:00 - 08:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '07:30 - 08:30',
+                                                        )
+                                                    }
+                                                >
+                                                    07:30 - 08:30
                                                 </li>
-                                                <li className={chonGio.item}>
-                                                    08:00 - 09:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '08:30 - 09:30',
+                                                        )
+                                                    }
+                                                >
+                                                    08:30 - 09:30
                                                 </li>
-                                                <li className={chonGio.item}>
-                                                    09:00 - 10:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '09:30 - 10:30',
+                                                        )
+                                                    }
+                                                >
+                                                    09:30 - 10:30
                                                 </li>
-                                                <li className={chonGio.item}>
-                                                    10:00 - 11:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '10:30 - 11:00',
+                                                        )
+                                                    }
+                                                >
+                                                    10:30 - 11:00
                                                 </li>
                                             </ul>
                                         </div>
@@ -140,17 +227,55 @@ function Page(props) {
                                         </div>
                                         <div className={chonGio.items}>
                                             <ul>
-                                                <li className={chonGio.item}>
-                                                    07:00 - 08:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '13:00 - 13:30',
+                                                        )
+                                                    }
+                                                >
+                                                    13:00 - 13:30
                                                 </li>
-                                                <li className={chonGio.item}>
-                                                    08:00 - 09:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '13:30 - 14:30',
+                                                        )
+                                                    }
+                                                >
+                                                    13:30 - 14:30
                                                 </li>
-                                                <li className={chonGio.item}>
-                                                    09:00 - 10:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '14:30 - 15:30',
+                                                        )
+                                                    }
+                                                >
+                                                    14:30 - 15:30
                                                 </li>
-                                                <li className={chonGio.item}>
-                                                    10:00 - 11:00
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '15:30 - 16:30',
+                                                        )
+                                                    }
+                                                >
+                                                    15:30 - 16:30
+                                                </li>
+                                                <li
+                                                    className={chonGio.item}
+                                                    onClick={() =>
+                                                        handleAddTime(
+                                                            '16:30 - 17:00',
+                                                        )
+                                                    }
+                                                >
+                                                    16:30 - 17:00
                                                 </li>
                                             </ul>
                                         </div>
@@ -158,13 +283,15 @@ function Page(props) {
                                 </div>
                             </div>
 
-                            <button
-                                className={style.right_button}
-                                onClick={() => router.back()}
-                            >
-                                Quay lại
-                                <AiOutlineRollback className="ml_4" />
-                            </button>
+                            <div className={style.right_container_down}>
+                                <button
+                                    className={style.right_button_left}
+                                    onClick={() => router.back()}
+                                >
+                                    Quay lại
+                                    <AiOutlineRollback className="ml_4" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

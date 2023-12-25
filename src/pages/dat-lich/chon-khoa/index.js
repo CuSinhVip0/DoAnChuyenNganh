@@ -1,29 +1,92 @@
-import Nav from '@/component/nav';
 import Head from 'next/head';
 import Link from 'next/link';
-
-import style from '@/styles/datLich/chonKhoa.module.css';
-import {MdKeyboardArrowRight} from 'react-icons/md';
-import {FaHospitalAlt} from 'react-icons/fa';
-import {AiOutlineRollback} from 'react-icons/ai';
-import {useRef} from 'react';
 import {useRouter} from 'next/router';
 import {hasCookie} from 'cookies-next';
 
-export const getServerSideProps = ({req, res}) => {
+import {useRef, useEffect, useState} from 'react';
+
+import style from '@/styles/datLich/chonKhoa.module.css';
+
+import {MdKeyboardArrowRight} from 'react-icons/md';
+import {FaHospitalAlt} from 'react-icons/fa';
+
+export const getServerSideProps = async ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
-    return {props: {hascookie}};
+    const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
+    return {props: {hascookie, result: await posts.json()}};
 };
 
 function Page(props) {
-    const router = useRouter();
     const khoa = useRef();
+    const router = useRouter();
+    const [value, setValue] = useState();
+    //dieu huong sang trang tiep theo
+    // const handleAddKhoa = (id) => {
+    //     // sessionStorage.setItem('query_lich', JSON.stringify({id_khoa: id}));
+    //     router.push({
+    //         pathname: '/dat-lich/chon-ngay',
+    //         query: {id_khoa: id},
+    //     });
+    // };
+    useEffect(() => {
+        // Prefetch the dashboard page
+        router.prefetch('/dat-lich/chon-ngay');
+    }, [router]);
+    // chuẩn hóa tiếng việt - trên mạng
+    function normalizeString(str) {
+        if (typeof str !== 'string') {
+            console.error(
+                'normalizeString was called with a non-string argument:',
+                str,
+            );
+            return '';
+        }
+        return str
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+    }
+
+    function search(term, data) {
+        const normalizedTerm = normalizeString(term);
+        return data.filter((item) =>
+            normalizeString(item.ten_khoa).includes(normalizedTerm),
+        );
+    }
+    const show = () => {
+        const searchResults =
+            value != undefined
+                ? search(value, props.result.data)
+                : props.result.data;
+
+        return (
+            <>
+                {searchResults.map((item) => {
+                    return (
+                        <Link
+                            className={`${style.result_item} ${style.result_item_link}`}
+                            href={{
+                                pathname: '/dat-lich/chon-ngay',
+                                query: {id_khoa: item.id_khoa},
+                            }}
+                            shallow={true}
+                            key={item.id_khoa}
+                            // onClick={() => handleAddKhoa(item.id_khoa)}
+                        >
+                            Khoa {item.ten_khoa}
+                        </Link>
+                    );
+                })}
+            </>
+        );
+    };
+
     return (
         <>
             <Head>
                 <title>Đặt lịch khám bệnh - Chọn khoa khám</title>
             </Head>
-            <Nav hascookie={props.hascookie} />
+
             <div className={style.wrapper}>
                 <div className={style.container}>
                     <div className={style.route}>
@@ -31,7 +94,10 @@ function Page(props) {
                             Trang chủ
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
-                        <Link className={style.route_link} href={''}>
+                        <Link
+                            className={`${style.route_link} cursor_non`}
+                            href={''}
+                        >
                             Đặt lịch
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
@@ -69,24 +135,6 @@ function Page(props) {
                                                 </p>
                                             </div>
                                         </li>
-                                        <li className={style.left_body_item}>
-                                            <div className={style.item_icon}>
-                                                <FaHospitalAlt
-                                                    className={'w20_hf'}
-                                                />
-                                            </div>
-                                            <div className={style.item_content}>
-                                                <p>
-                                                    Bệnh viện Đại học Y Dược
-                                                    TP.HCM
-                                                </p>
-                                                <p className="font_color_858585 font_size_14">
-                                                    Cơ sở 201 Nguyễn Chí Thanh,
-                                                    Phường 12, Quận 5, TP. Hồ
-                                                    Chí Minh
-                                                </p>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -102,6 +150,9 @@ function Page(props) {
                                 </div>
                                 <div className={style.right_body}>
                                     <input
+                                        onChange={(e) => {
+                                            setValue(e.target.value);
+                                        }}
                                         className={`${style.search_input} font_color_858585`}
                                         type="text"
                                         placeholder="Tìm kiếm nhanh chuyên khoa"
@@ -114,60 +165,10 @@ function Page(props) {
                                             e.stopPropagation();
                                         }}
                                     >
-                                        <ul>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                            <li className={style.result_item}>
-                                                Khám chức năng hô hấp
-                                            </li>
-                                        </ul>
+                                        <ul>{show()}</ul>
                                     </div>
                                 </div>
                             </div>
-                            <button
-                                className={style.right_button}
-                                onClick={() => router.back()}
-                            >
-                                Quay lại
-                                <AiOutlineRollback className="ml_4" />
-                            </button>
                         </div>
                     </div>
                 </div>

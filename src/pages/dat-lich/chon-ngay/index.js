@@ -1,33 +1,59 @@
-import Nav from '@/component/nav';
+'use client';
+
 import Head from 'next/head';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
+import {hasCookie} from 'cookies-next';
+
+import {useRef, useEffect, useState} from 'react';
+
 import style from '@/styles/datLich/chonKhoa.module.css';
 import chonNgay from '@/styles/datLich/chonNgay.module.css';
+
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FaHospitalAlt} from 'react-icons/fa';
+import {AiOutlineRollback} from 'react-icons/ai';
 import {
     FaBriefcaseMedical,
     FaCircleChevronLeft,
     FaCircleChevronRight,
 } from 'react-icons/fa6';
-import {AiOutlineRollback} from 'react-icons/ai';
-import {useRef, useEffect} from 'react';
-import {useRouter} from 'next/router';
-import {hasCookie} from 'cookies-next';
 
-export function getServerSideProps({req, res}) {
+export async function getServerSideProps({req, res}) {
     const hascookie = hasCookie('id_nguoidung', {req, res});
-    return {props: {hascookie}};
+    const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
+    return {props: {hascookie, result: await posts.json()}};
 }
 
 function Page(props) {
+    var indexx = 1;
     const router = useRouter();
-    const dateRef = useRef();
+    const [valid, setValid] = useState(false);
 
+    // // set lại query string khi back
+    // useEffect(() => {
+    //     const x = Object.entries(
+    //         JSON.parse(sessionStorage.getItem('query_lich')),
+    //     );
+    //     const x2 = x.filter((item) => item[0] != 'id_ngay');
+    //     const x3 = x2.reduce((acc, [key, value]) => {
+    //         acc[key] = value;
+    //         return acc;
+    //     }, {});
+
+    //     sessionStorage.setItem('query_lich', JSON.stringify(x3));
+
+    //     router.push({
+    //         pathname: '/dat-lich/chon-ngay',
+    //         query: JSON.parse(sessionStorage.getItem('query_lich')),
+    //     });
+    // }, []);
+
+    const dateRef = useRef();
     //ngay thang nam hien tai
     const d = new Date();
-    var year = d.getFullYear();
-    var month = d.getMonth() + 1;
+    const [year, setYear] = useState(d.getFullYear());
+    const [month, setMonth] = useState(d.getMonth() + 1);
 
     //lay so ngay trong thang
     const date = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
@@ -36,58 +62,130 @@ function Page(props) {
     var day = new Date(`${year}-${month}-1`).getDay();
     if (day == 0) day = 7;
 
-    function showDate() {
-        //check ngay thu 7 trong bang
-        var day_is_7 = 1;
-        //xu ly truoc
+    const handleaddNgay = (date) => {
+        // sessionStorage.setItem(
+        //     'query_lich',
+        //     JSON.stringify({
+        //         ...JSON.parse(sessionStorage.getItem('query_lich')),
+        //         id_ngay: date,
+        //     }),
+        // );
+        router.push({
+            pathname: '/dat-lich/chon-gio',
+            query: {
+                // ...JSON.parse(sessionStorage.getItem('query_lich')),
+                ...router.query,
+                ngay: date,
+            },
+        });
+    };
+
+    useEffect(() => {
+        if (
+            year > new Date().getFullYear() ||
+            month > new Date().getMonth() + 1
+        )
+            setValid(true);
+        else {
+            setValid(false);
+        }
+    }, [year, month]);
+    const show1 = () => {
         var day_truoc = new Date(year, month - 1, 0).getDate();
-        for (var i = day_truoc - day + 2; i <= day_truoc; i++) {
-            dateRef.current.innerHTML += ` <li class='${
-                chonNgay.date_item
-            } font_color_b3b7ba ${day_is_7 == 7 ? 'border_right_non' : ''}'  >
-            ${i}
-            
-        </li>`;
-            day_is_7++;
-            if (day_is_7 == 8) day_is_7 = 1;
-        }
-
-        //xu lys ngay trong thang
+        const x = day_truoc - (day_truoc - day + 2);
+        const numbers = Array.from(
+            {length: x + 1},
+            (_, index) => index + (day_truoc - day + 2),
+        );
+        return (
+            <>
+                {numbers.map((item, index) => {
+                    return (
+                        <li
+                            key={index}
+                            className={`${
+                                chonNgay.date_item
+                            } font_color_b3b7ba ${
+                                indexx++ % 7 == 0 ? 'border_right_non' : ''
+                            }`}
+                        >
+                            {item}
+                        </li>
+                    );
+                })}
+            </>
+        );
+    };
+    const show2 = () => {
         var day_hientai = d.getDate();
-        for (var i = 1; i <= date; i++) {
-            dateRef.current.innerHTML += ` <li class='${chonNgay.date_item} ${
-                i <= day_hientai ? 'font_color_b3b7ba' : 'item_hover'
-            } ${day_is_7 == 7 ? 'border_right_non' : ''}'>
-            ${i}
-        </li>`;
-            day_is_7++;
-            if (day_is_7 == 8) day_is_7 = 1;
-        }
 
-        //xy ly sau
+        const numbers = Array.from({length: date}, (_, index) => index + 1);
+        //xu ly truoc
+        return (
+            <>
+                {numbers.map((item, index) => {
+                    const date = `${item}/${month}/${year}`;
+                    return (
+                        <li
+                            onClick={() =>
+                                index + 1 > day_hientai
+                                    ? handleaddNgay(date)
+                                    : null
+                            }
+                            key={index}
+                            className={`${chonNgay.date_item} ${
+                                index + 1 <= day_hientai
+                                    ? !valid
+                                        ? 'font_color_b3b7ba'
+                                        : ''
+                                    : 'item_hover'
+                            } ${indexx++ % 7 == 0 ? 'border_right_non' : ''}`}
+                        >
+                            {item}
+                        </li>
+                    );
+                })}
+            </>
+        );
+    };
+    const show3 = () => {
+        // lấy số ngày còn lại để  điền vào dòng cuối
         var date_sau = new Date(`${year}-${month}-${date}`).getDay();
         if (date_sau == 0) {
             date_sau = 7;
         }
-        for (var i = 1; i <= 7 - date_sau; i++) {
-            dateRef.current.innerHTML += ` <li class='${
-                chonNgay.date_item
-            } font_color_b3b7ba ${day_is_7 == 7 ? 'border_right_non' : ''}'>
-            ${i}
-        </li>`;
-            day_is_7++;
-            if (day_is_7 == 8) day_is_7 = 1;
-        }
-    }
-    useEffect(() => {
-        showDate();
-    }, []);
+        const numbers = Array.from(
+            {length: 7 - date_sau},
+            (_, index) => index + 1,
+        );
+
+        //xu ly truoc
+        return (
+            <>
+                {numbers.map((item, index) => {
+                    return (
+                        <li
+                            key={index}
+                            className={`${
+                                chonNgay.date_item
+                            } font_color_b3b7ba ${
+                                indexx++ % 7 == 0 ? 'border_right_non' : ''
+                            }`}
+                        >
+                            {item}
+                        </li>
+                    );
+                })}
+            </>
+        );
+    };
+
     return (
         <>
             <Head>
                 <title>Đặt lịch khám bệnh - Chọn khoa khám</title>
             </Head>
-            <Nav hascookie={props.hascookie} />
+
             <div className={style.wrapper}>
                 <div className={style.container}>
                     <div className={style.route}>
@@ -95,20 +193,18 @@ function Page(props) {
                             Trang chủ
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
-                        <Link className={style.route_link} href={''}>
-                            Đặt lịch
-                        </Link>
+                        <p className={style.route_link}>Đặt lịch</p>
                         <MdKeyboardArrowRight className="mlr_4px" />
-                        <Link className={style.route_link} href={''}>
+                        <Link
+                            className={style.route_link}
+                            href={'/dat-lich/chon-khoa'}
+                        >
                             Chọn chuyên khoa
                         </Link>
                         <MdKeyboardArrowRight className="mlr_4px" />
-                        <Link
-                            className={`${style.route_link} font_color_1da1f2`}
-                            href={''}
-                        >
+                        <p className={`${style.route_link} font_color_1da1f2`}>
                             Chọn ngày khám
-                        </Link>
+                        </p>
                     </div>
 
                     <div className={style.content}>
@@ -144,7 +240,21 @@ function Page(props) {
                                                 />
                                             </div>
                                             <div className={style.item_content}>
-                                                <p>Chuyên khoa: Tai mũi họng</p>
+                                                <p>
+                                                    Chuyên khoa:{' '}
+                                                    {props.result.data
+                                                        .filter(
+                                                            (prop) =>
+                                                                prop.id_khoa ==
+                                                                router.query[
+                                                                    'id_khoa'
+                                                                ],
+                                                        )
+                                                        .map(
+                                                            (propx) =>
+                                                                propx.ten_khoa,
+                                                        )}
+                                                </p>
                                             </div>
                                         </li>
                                     </ul>
@@ -163,9 +273,19 @@ function Page(props) {
                                 <div className={chonNgay.right_mouth}>
                                     <div className={chonNgay.mouth_container}>
                                         <FaCircleChevronLeft
-                                            className={
+                                            className={`${
                                                 chonNgay.mouth_container_icon
-                                            }
+                                            }  ${valid ? '' : ' no_click'}`}
+                                            onClick={() => {
+                                                if (valid) {
+                                                    if (month == 1) {
+                                                        setMonth(12);
+                                                        setYear(year - 1);
+                                                    } else {
+                                                        setMonth(month - 1);
+                                                    }
+                                                }
+                                            }}
                                         />
                                         <p>
                                             THÁNG {month}, {year}
@@ -174,6 +294,14 @@ function Page(props) {
                                             className={
                                                 chonNgay.mouth_container_icon
                                             }
+                                            onClick={() => {
+                                                if (month == 12) {
+                                                    setMonth(1);
+                                                    setYear(year + 1);
+                                                } else {
+                                                    setMonth(month + 1);
+                                                }
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -209,16 +337,22 @@ function Page(props) {
                                     <ul
                                         className={chonNgay.date_container}
                                         ref={dateRef}
-                                    ></ul>
+                                    >
+                                        {show1()}
+                                        {show2()}
+                                        {show3()}
+                                    </ul>
                                 </div>
                             </div>
-                            <button
-                                className={style.right_button}
-                                onClick={() => router.back()}
-                            >
-                                Quay lại
-                                <AiOutlineRollback className="ml_4" />
-                            </button>
+                            <div className={style.right_container_down}>
+                                <button
+                                    className={style.right_button_left}
+                                    onClick={() => router.back()}
+                                >
+                                    Quay lại
+                                    <AiOutlineRollback className="ml_4" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

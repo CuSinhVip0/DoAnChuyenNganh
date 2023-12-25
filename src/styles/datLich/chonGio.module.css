@@ -24,4 +24,10 @@
     border-radius: 8px;
     width: 150px;
     text-align: center;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #00d5fc;
+    color: white;
 }

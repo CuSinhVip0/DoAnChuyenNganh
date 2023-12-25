@@ -1,3 +1,8 @@
+.btndisabled {
+    cursor: no-drop;
+    opacity: 0.2;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -41,6 +46,6 @@
     align-items: center;
     justify-content: space-between;
     font-size: 24px;
-    margin: 20px 0  ;
+    margin: 20px 0;
     font-weight: 500;
 }

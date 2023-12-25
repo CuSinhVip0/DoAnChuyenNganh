@@ -1,0 +1,38 @@
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 150px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #e8f2f7;
+}
+
+.container {
+    width: 1140px;
+}
+
+.route {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.route_link {
+    font-size: 16px;
+    color: #003553;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 36px;
+}
+
+
