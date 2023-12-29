@@ -1,0 +1,33 @@
+.container {
+    padding: 30px 32px;
+}
+
+.container_content {
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+
+.items ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.item {
+    padding: 16px 0px;
+    border: 1px solid #00d5fc;
+    border-radius: 8px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #00d5fc;
+    color: white;
+}

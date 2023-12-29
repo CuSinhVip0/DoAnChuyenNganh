@@ -17,20 +17,40 @@ ul {
     padding: 0;
 }
 
+p {
+    margin: 0;
+}
+
 hr {
     margin: 0;
     height: 1px;
+}
+
+.no_click {
+    color: #858585 !important;
+    cursor: no-drop !important;
 }
 
 .unvalid {
     border-color: red !important;
 }
 
+/* heigt -width */
+.h2 {
+    height: 2px;
+}
+
 .w20_hf {
     width: 20px;
     height: fit-content;
 }
-
+/* end heigt - width */
+.mt_40 {
+    margin-top: 40px;
+}
+.mt_20 {
+    margin-top: 20px;
+}
 .mlr_4px {
     margin: 0px 4px;
 }
@@ -42,9 +62,15 @@ hr {
 .ml_4 {
     margin-left: 4px;
 }
+.mr_4 {
+    margin-right: 4px;
+}
 .ptb_12 {
     padding-top: 13px;
     padding-bottom: 13px;
+}
+.mtb_20 {
+    margin: 20px 0;
 }
 /* animation */
 .scrollup {
@@ -69,12 +95,28 @@ hr {
 
 /* font */
 
+.textUppercase {
+    text-transform: uppercase;
+}
+
+.font_weight_600 {
+    font-weight: 600 !important;
+}
+
+.font_color_b3b7ba {
+    color: #b3b7ba !important;
+}
+
 .font_size_14 {
     font-size: 14px !important;
 }
 
+.font_color-1abc9c {
+    color: #1abc9c !important;
+}
+
 .font_color_1da1f2 {
-    color: #1da1f2 !important;
+    color: #00b5f1 !important;
 }
 
 .font_color_858585 {
@@ -87,6 +129,79 @@ hr {
 
 /* end font */
 
+.cursor_non {
+    cursor: default;
+}
+
 .cursor {
     cursor: pointer;
+}
+
+.item_hover:hover {
+    background-color: #00d5fc;
+}
+
+.border_right_non {
+    border-right: none !important;
+}
+.border_non {
+    border: none !important;
+}
+
+/* background */
+
+.linear_00b5f1_00e0ff_36 {
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+}
+
+/* end background */
+
+@keyframes a {
+    0% {
+        left: 100%;
+    }
+    25% {
+        left: calc(100% - 260px);
+    }
+    75% {
+        left: calc(100% - 260px);
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+.loader {
+    display: none;
+    transition: all 0.4s;
+    gap: 0.8rem;
+}
+
+.loader div {
+    background-color: rgb(34, 34, 34);
+    box-shadow: inset 2px 2px 10px black;
+    border-radius: 100%;
+    height: 0.5rem;
+    width: 0.5rem;
+}
+
+.box-load1 {
+    animation: brighten 1.2s infinite;
+}
+
+.box-load2 {
+    animation: brighten 1.2s infinite;
+    animation-delay: 0.2s;
+}
+
+.box-load3 {
+    animation: brighten 1.2s infinite;
+    animation-delay: 0.4s;
+}
+
+@keyframes brighten {
+    100% {
+        background-color: rgb(165, 165, 165);
+        box-shadow: none;
+    }
 }

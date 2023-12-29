@@ -17,6 +17,11 @@ const ProfileDialog = ({data, onClose}) => {
             onClose();
         }
     };
+    const formattedDate = new Date(data.ngay_sinh).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    });
     return (
         <div className={styles.dialog_container} onClick={handleOverlayClick}>
             <div className={styles.dialog_content}>
@@ -26,7 +31,7 @@ const ProfileDialog = ({data, onClose}) => {
                 <h2>Chi tiết hồ sơ</h2>
 
                 <div className={styles.content_wrapper}>
-                    <div className={styles.strong_section}>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -35,7 +40,10 @@ const ProfileDialog = ({data, onClose}) => {
                                 />
                             </span>
                             <strong>Họ và tên:</strong>
+                            <p>{data.ten}</p>
                         </p>
+                    </div>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -44,7 +52,10 @@ const ProfileDialog = ({data, onClose}) => {
                                 />
                             </span>
                             <strong>Ngày sinh:</strong>
+                            <p>{formattedDate}</p>
                         </p>
+                    </div>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -53,7 +64,10 @@ const ProfileDialog = ({data, onClose}) => {
                                 />
                             </span>
                             <strong>Số điện thoại:</strong>
+                            <p>{data.sdt}</p>
                         </p>
+                    </div>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -62,7 +76,10 @@ const ProfileDialog = ({data, onClose}) => {
                                 />
                             </span>
                             <strong>Giới tính:</strong>
+                            <p>{data.gioi_tinh}</p>
                         </p>
+                    </div>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -70,9 +87,10 @@ const ProfileDialog = ({data, onClose}) => {
                                     className={styles.custom_icon}
                                 />
                             </span>
-                            <strong>BHYT:</strong>
+                            <strong>BHYT:</strong> <p>{data.bhyt}</p>
                         </p>
-
+                    </div>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -80,9 +98,10 @@ const ProfileDialog = ({data, onClose}) => {
                                     className={styles.custom_icon}
                                 />
                             </span>
-                            <strong>Email:</strong>
+                            <strong>Email:</strong> <p>{data.email}</p>
                         </p>
-
+                    </div>
+                    <div className={styles.container}>
                         <p>
                             <span>
                                 <FontAwesomeIcon
@@ -91,16 +110,8 @@ const ProfileDialog = ({data, onClose}) => {
                                 />
                             </span>
                             <strong>Địa chỉ:</strong>
+                            <p>{data.dia_chi}</p>
                         </p>
-                    </div>
-                    <div className={styles.weak_section}>
-                        <p>{data.hoTen}</p>
-                        <p>{data.ngaySinh}</p>
-                        <p>{data.sdt}</p>
-                        <p>{data.gioiTinh}</p>
-                        <p>{data.bhyt}</p>
-                        <p>{data.email}</p>
-                        <p>{data.diaChi}</p>
                     </div>
                 </div>
             </div>

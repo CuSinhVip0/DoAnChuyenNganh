@@ -6,36 +6,36 @@ import style from '@/styles/profile/profile.module.css';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FaHospitalAlt} from 'react-icons/fa';
 
-import {hasCookie} from 'cookies-next';
-import React, {useState} from 'react';
+import {getCookie, hasCookie} from 'cookies-next';
+import React, {useEffect, useState} from 'react';
 import PatientInfoForm from '../../component/profile/PatientInfoForm';
 import ProfileDialog from '@/component/profile/ProfileDialog';
 
-export const getServerSideProps = ({req, res}) => {
+export const getServerSideProps = async ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
-    return {props: {hascookie}};
+
+    const response = await fetch(
+        `http://localhost:3000/api/users/patient/patientData?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
+
+    return {props: {hascookie, patientData: await response.json()}};
 };
 
 function Page(props) {
     const handleAddProfileClick = () => {
         window.location.href = '/addNewProfile';
     };
-    const [patientData, setPatientData] = useState({
-        id: 1,
-        hoTen: 'Nguyen Van A',
-        ngaySinh: '01/01/1990',
-        sdt: '0123456789',
-        gioiTinh: 'Nam',
-        bhyt: '0987654321',
-        email: 'abc@gmail.com',
-        diaChi: '123 Đường ABC, Quận XYZ, Thành phố HCM',
-        danToc: 'Kinh',
-    });
 
     const handleEdit = () => {
         window.location.href = '/editprofile';
     };
+    const [selectedPatient, setSelectedPatient] = useState(null);
+    const [patientData, setPatientData] = useState(props.patientData);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    // const [selectedPatient, setSelectedPatient] = useState(null);
     const handleDelete = () => {
         const {id} = patientData;
 
@@ -43,14 +43,26 @@ function Page(props) {
 
         setIsDialogOpen(false);
     };
-    const handleViewDetails = () => {
-        setIsDialogOpen(true);
+    const handleViewDetails = (patientId) => {
+        if (patientData && patientData.result) {
+            const selectedPatient = patientData.result.find(
+                (patient) => patient.id_nguoidung === patientId,
+            );
+            if (selectedPatient) {
+                setIsDialogOpen(true);
+                setSelectedPatient(selectedPatient);
+            }
+        }
     };
 
     const handleDialogClose = () => {
         setIsDialogOpen(false);
     };
 
+    useEffect(() => {
+        setPatientData(props.patientData);
+    }, [props.patientData]);
+    console.log(props.patientData);
     return (
         <>
             <Head>
@@ -91,15 +103,25 @@ function Page(props) {
                                     Danh sách hồ sơ bệnh nhân
                                 </div>
                                 <div>
-                                    <PatientInfoForm
-                                        data={patientData}
-                                        onEdit={handleEdit}
-                                        onDelete={handleDelete}
-                                        onViewDetails={handleViewDetails}
-                                    />
+                                    {props.patientData &&
+                                        props.patientData.result.map(
+                                            (patient) => (
+                                                <PatientInfoForm
+                                                    key={patient.id_nguoidung}
+                                                    data={patient}
+                                                    onEdit={handleEdit}
+                                                    onDelete={handleDelete}
+                                                    onViewDetails={() =>
+                                                        handleViewDetails(
+                                                            patient.id_nguoidung,
+                                                        )
+                                                    }
+                                                />
+                                            ),
+                                        )}
                                     {isDialogOpen && (
                                         <ProfileDialog
-                                            data={patientData}
+                                            data={selectedPatient}
                                             onClose={handleDialogClose}
                                         />
                                     )}

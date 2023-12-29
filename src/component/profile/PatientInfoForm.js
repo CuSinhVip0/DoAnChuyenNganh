@@ -13,9 +13,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const PatientInfoForm = ({data, onEdit, onDelete, onViewDetails}) => {
-    if (!data) {
-        return null;
-    }
+    const formattedDate = new Date(data.ngay_sinh).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    });
 
     return (
         <div className={styles.form_container}>
@@ -28,7 +30,7 @@ const PatientInfoForm = ({data, onEdit, onDelete, onViewDetails}) => {
                         />
                     </span>
                     <label>Họ và tên:</label>
-                    <p>{data.hoTen}</p>
+                    <p>{data.ten}</p>
                 </div>
                 <div className={styles.container}>
                     <span>
@@ -38,7 +40,7 @@ const PatientInfoForm = ({data, onEdit, onDelete, onViewDetails}) => {
                         />
                     </span>
                     <label>Ngày sinh:</label>
-                    <p>{data.ngaySinh}</p>
+                    <p>{formattedDate}</p>
                 </div>
                 <div className={styles.container}>
                     <span>
@@ -58,7 +60,7 @@ const PatientInfoForm = ({data, onEdit, onDelete, onViewDetails}) => {
                         />
                     </span>
                     <label>Giới tính:</label>
-                    <p>{data.gioiTinh}</p>
+                    <p>{data.gioi_tinh}</p>
                 </div>
                 <div className={styles.container}>
                     <span>
@@ -68,7 +70,7 @@ const PatientInfoForm = ({data, onEdit, onDelete, onViewDetails}) => {
                         />
                     </span>
                     <label>Địa chỉ:</label>
-                    <p>{data.diaChi}</p>
+                    <p>{data.dia_chi}</p>
                 </div>
             </form>
             <div className={styles.action_buttons}>
