@@ -1,9 +1,10 @@
-import Head from "next/head";
-import Image from "next/image";
-import register from "@/styles/register.module.css";
-import { useRef, useState } from "react";
+import Head from 'next/head';
+import Image from 'next/image';
+import register from '@/styles/register.module.css';
+import {useRef, useState} from 'react';
+import Link from 'next/link';
 
-export default function Page({ repo }) {
+export default function RegisterPage({repo}) {
     const username = useRef();
     const password = useRef();
     const password_confirm = useRef();
@@ -17,7 +18,11 @@ export default function Page({ repo }) {
                 <div className={register.container}>
                     <div className={register.form_register}>
                         <div className={register.title}>Đăng ký</div>
-                        <form method="post" onSubmit={(e) => handleSubmit(e)} action="http://localhost:3000/api/register">
+                        <form
+                            method="post"
+                            onSubmit={(e) => handleSubmit(e)}
+                            action="http://localhost:3000/api/register"
+                        >
                             <input
                                 type="text"
                                 className={register.input}
@@ -71,7 +76,7 @@ export default function Page({ repo }) {
                                 type="submit"
                                 className={
                                     register.input +
-                                    " " +
+                                    ' ' +
                                     register.register_submit
                                 }
                                 value="Đăng ký"
@@ -79,10 +84,13 @@ export default function Page({ repo }) {
                         </form>
                         <div className={register.sub}>
                             <p className={register.sub_title}>
-                                Bạn đã có tài khoản?{" "}
-                                <a className={register.sub_link} href="/login">
+                                Bạn đã có tài khoản?{' '}
+                                <Link
+                                    className={register.sub_link}
+                                    href="/login"
+                                >
                                     Đăng nhập
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </div>
@@ -100,24 +108,24 @@ export default function Page({ repo }) {
     );
 
     function handleFocus(e, ref) {
-        ref.current.innerText = "";
-        e.target.className = e.target.className.replace(" unvalid", "");
+        ref.current.innerText = '';
+        e.target.className = e.target.className.replace(' unvalid', '');
     }
 
     function handleCheck(e, ref = null) {
         const value = e.value;
         //không có data
         if (!value) {
-            ref.current.innerText = "Vui lòng nhập đủ thông tin";
+            ref.current.innerText = 'Vui lòng nhập đủ thông tin';
             return false;
         }
 
         //có data
         else {
-            ref.current.innerText = "";
+            ref.current.innerText = '';
             switch (e.name) {
                 //username :Kí tự đầu tiên là chữ và độ dài lớn hơn 4
-                case "username":
+                case 'username':
                     if (
                         !(
                             e.value.length >= 4 &&
@@ -127,24 +135,24 @@ export default function Page({ repo }) {
                                     e.value.charCodeAt(0) <= 122))
                         )
                     ) {
-                        if (!e.className.includes("unvalid"))
-                            e.className += " unvalid";
+                        if (!e.className.includes('unvalid'))
+                            e.className += ' unvalid';
                         ref.current.innerText =
-                            "Tài khoản không hợp lệ! Vui lòng nhập lại";
+                            'Tài khoản không hợp lệ! Vui lòng nhập lại';
                         return false;
                     }
                     return true;
 
                 //password: Kí tự đầu tiên là chữ và viết hoa và độ dài lớn hơn 6
-                case "password":
-                    const pass = document.getElementsByName("password_confirm");
+                case 'password':
+                    const pass = document.getElementsByName('password_confirm');
                     //check lại ô password confirm
                     if (pass[0].value) {
                         if (e.value !== pass[0].value) {
-                            if (!pass[0].className.includes("unvalid"))
-                                pass[0].className += " unvalid";
+                            if (!pass[0].className.includes('unvalid'))
+                                pass[0].className += ' unvalid';
                             password_confirm.current.innerText =
-                                "Mật này không hợp lệ! Vui này nhập lai";
+                                'Mật này không hợp lệ! Vui này nhập lai';
                             return false;
                         }
                     }
@@ -156,20 +164,20 @@ export default function Page({ repo }) {
                             e.value.charCodeAt(0) <= 90
                         )
                     ) {
-                        if (!e.className.includes("unvalid"))
-                            e.className += " unvalid";
+                        if (!e.className.includes('unvalid'))
+                            e.className += ' unvalid';
                         ref.current.innerText =
-                            "Mật khẩu không hợp lệ! Vui lòng nhập lại";
+                            'Mật khẩu không hợp lệ! Vui lòng nhập lại';
                         return false;
                     }
                     return true;
-                case "password_confirm":
-                    const password = document.getElementsByName("password");
+                case 'password_confirm':
+                    const password = document.getElementsByName('password');
                     if (e.value !== password[0].value) {
-                        if (!e.className.includes("unvalid"))
-                            e.className += " unvalid";
+                        if (!e.className.includes('unvalid'))
+                            e.className += ' unvalid';
                         ref.current.innerText =
-                            "Mật khẩu không giống nhau! Vui lòng nhập lại";
+                            'Mật khẩu không giống nhau! Vui lòng nhập lại';
                         return false;
                     }
                     return true;

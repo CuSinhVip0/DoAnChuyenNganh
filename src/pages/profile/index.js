@@ -7,51 +7,87 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUserPlus, faAddressBook} from '@fortawesome/free-solid-svg-icons';
 
-import {hasCookie} from 'cookies-next';
-import React, {useState} from 'react';
+import {getCookie, hasCookie} from 'cookies-next';
+import React, {useEffect, useState} from 'react';
 import PatientInfoForm from '../../component/profile/PatientInfoForm';
 import ProfileDialog from '@/component/profile/ProfileDialog';
 
-export const getServerSideProps = ({req, res}) => {
+export const getServerSideProps = async ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
-    return {props: {hascookie}};
+
+    const response = await fetch(
+        `http://localhost:3000/api/users/patient/patientData?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
+
+    return {props: {hascookie, patientData: await response.json()}};
 };
 
 function Page(props) {
     const handleAddProfileClick = () => {
         window.location.href = '/addNewProfile';
     };
-    const [patientData, setPatientData] = useState({
-        id: 1,
-        hoTen: 'Nguyen Van A',
-        ngaySinh: '01/01/1990',
-        sdt: '0123456789',
-        gioiTinh: 'Nam',
-        bhyt: '0987654321',
-        email: 'abc@gmail.com',
-        diaChi: '123 Đường ABC, Quận XYZ, Thành phố HCM',
-        danToc: 'Kinh',
-    });
 
     const handleEdit = () => {
         window.location.href = '/editprofile';
     };
+    const [selectedPatient, setSelectedPatient] = useState(null);
+    const [patientData, setPatientData] = useState(props.patientData);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const handleDelete = () => {
-        const {id} = patientData;
+    // const [selectedPatient, setSelectedPatient] = useState(null);
+    const handleDelete = async (patientId) => {
+        try {
+            const response = await fetch(
+                `http://localhost:3000/api/users/patient/deleteProfile?id=${patientId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
 
-        setPatientData(null);
+            if (response.ok) {
+                // Remove the deleted patient from the local state
+                setPatientData((prevData) => ({
+                    ...prevData,
+                    result: prevData.result.filter(
+                        (patient) => patient.id_nguoidung !== patientId,
+                    ),
+                }));
 
-        setIsDialogOpen(false);
+                setIsDialogOpen(false);
+                console.log('Đã xóa hồ sơ');
+            } else {
+                console.error('Failed to delete patient record');
+            }
+        } catch (error) {
+            console.error('Error deleting patient record:', error);
+        }
     };
-    const handleViewDetails = () => {
-        setIsDialogOpen(true);
+
+    const handleViewDetails = (patientId) => {
+        if (patientData && patientData.result) {
+            const selectedPatient = patientData.result.find(
+                (patient) => patient.id_nguoidung === patientId,
+            );
+            if (selectedPatient) {
+                setIsDialogOpen(true);
+                setSelectedPatient(selectedPatient);
+            }
+        }
     };
 
     const handleDialogClose = () => {
         setIsDialogOpen(false);
     };
 
+    useEffect(() => {
+        setPatientData(props.patientData);
+    }, [props.patientData]);
+    console.log(props.patientData);
     return (
         <>
             <Head>
@@ -103,15 +139,37 @@ function Page(props) {
                                     Danh sách hồ sơ bệnh nhân
                                 </div>
                                 <div>
-                                    <PatientInfoForm
-                                        data={patientData}
-                                        onEdit={handleEdit}
-                                        onDelete={handleDelete}
-                                        onViewDetails={handleViewDetails}
-                                    />
+                                    {props.patientData &&
+                                    props.patientData.result.length > 0 ? (
+                                        props.patientData.result.map(
+                                            (patient) => (
+                                                <PatientInfoForm
+                                                    key={patient.id_nguoidung}
+                                                    data={patient}
+                                                    onEdit={handleEdit}
+                                                    onDelete={() =>
+                                                        handleDelete(
+                                                            patient.id_nguoidung,
+                                                        )
+                                                    }
+                                                    onViewDetails={() =>
+                                                        handleViewDetails(
+                                                            patient.id_nguoidung,
+                                                        )
+                                                    }
+                                                />
+                                            ),
+                                        )
+                                    ) : (
+                                        <p>
+                                            Bạn chưa có hồ sơ bệnh nhân. Vui
+                                            lòng tạo mới hồ sơ để được đặt khám.
+                                        </p>
+                                    )}
+
                                     {isDialogOpen && (
                                         <ProfileDialog
-                                            data={patientData}
+                                            data={selectedPatient}
                                             onClose={handleDialogClose}
                                         />
                                     )}

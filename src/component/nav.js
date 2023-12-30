@@ -4,23 +4,23 @@ import {useRef, useEffect, useState} from 'react';
 import nav from '@/styles/nav/index.module.css';
 import logo from '../../public/image/logo2.png';
 import user from '../../public/user.svg';
+
+import {FaRegCircleXmark} from 'react-icons/fa6';
 import {FaCaretDown} from 'react-icons/fa';
 import {FiLogOut} from 'react-icons/fi';
+
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
 
 export default function Nav({hascookie}) {
-    const [doLogin, setDologin] = useState(hascookie);
     const container = useRef();
     const left = useRef();
-
     const router = useRouter();
-
+    const [valueSearch, setValueSearch] = useState();
     const handleLogout = () => {
         // Xóa cookie 'id_nguoidung'
         deleteCookie('id_nguoidung');
-        router.replace(router.pathname);
-        setDologin(false);
+        router.replace(router.asPath);
     };
 
     useEffect(() => {
@@ -95,8 +95,26 @@ export default function Nav({hascookie}) {
                 </div>
                 <div className={nav.right}>
                     <div className={nav.up}>
+                        <div style={{position: 'relative'}}>
+                            <input
+                                type="text"
+                                value={valueSearch ? valueSearch : ''}
+                                className={nav.up_search}
+                                placeholder="Search"
+                                onChange={(e) => {
+                                    setValueSearch(e.target.value);
+                                }}
+                            />
+                            {valueSearch && (
+                                <FaRegCircleXmark
+                                    className={nav.up_search_icon}
+                                    onClick={() => setValueSearch('')}
+                                />
+                            )}
+                        </div>
+
                         <ul className={nav.up_items}>
-                            {!doLogin ? (
+                            {!hascookie ? (
                                 <>
                                     <li
                                         className={[nav.up_item, 'ptb_12'].join(
@@ -106,6 +124,12 @@ export default function Nav({hascookie}) {
                                         <Link
                                             className={nav.up_register}
                                             href="/register"
+                                            onClick={() => {
+                                                sessionStorage.setItem(
+                                                    'currentPage',
+                                                    router.pathname,
+                                                );
+                                            }}
                                         >
                                             Register
                                         </Link>
@@ -118,6 +142,12 @@ export default function Nav({hascookie}) {
                                         <Link
                                             className={nav.up_login}
                                             href="/login"
+                                            onClick={() => {
+                                                sessionStorage.setItem(
+                                                    'currentPage',
+                                                    router.pathname,
+                                                );
+                                            }}
                                         >
                                             Login
                                         </Link>

@@ -3,8 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import React, {useState} from 'react';
-import DaTungKhamForm from '../../component/addNewProfile/DaTungKhamForm';
-import ChuaTungKhamForm from '../../component/addNewProfile/ChuaTungKhamForm';
+
 import style from '@/styles/addNewProfile/addNewProfile.module.css';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {hasCookie} from 'cookies-next';
@@ -15,11 +14,6 @@ export const getServerSideProps = ({req, res}) => {
 };
 
 function Page(props) {
-    const [showDaTungKhamForm, setShowDaTungKhamForm] = useState(false);
-
-    const handleButtonClick = (hasPreviousExams) => {
-        setShowDaTungKhamForm(hasPreviousExams);
-    };
     return (
         <>
             <Head>
@@ -46,25 +40,6 @@ function Page(props) {
                         <div className={style.title_add}>
                             <h2>TẠO MỚI HỒ SƠ</h2>
                         </div>
-                        <div className={style.nav_wrap}>
-                            <div className={style.add_patient}>
-                                <button onClick={() => handleButtonClick(true)}>
-                                    Đã từng khám
-                                </button>
-                                <button
-                                    onClick={() => handleButtonClick(false)}
-                                >
-                                    Chưa từng khám
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Hiển thị form tương ứng với lựa chọn của người dùng */}
-                        {showDaTungKhamForm ? (
-                            <DaTungKhamForm />
-                        ) : (
-                            <ChuaTungKhamForm />
-                        )}
                     </div>
                 </div>
             </div>

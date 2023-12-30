@@ -8,6 +8,7 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
         rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     background-color: white;
+    z-index: 10;
 }
 
 .body {
@@ -35,6 +36,32 @@
 } */
 .up {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.up_search {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    min-width: 300px;
+    outline: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.up_search_icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00b5f1;
+    width: 25px;
+}
+
+.up_search:focus {
+    outline: 1px solid #00b5f1;
 }
 
 .up_items {

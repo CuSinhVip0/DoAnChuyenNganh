@@ -4,7 +4,8 @@ import Image from 'next/image';
 import Head from 'next/head';
 import login from '@/styles/login.module.css';
 import {useRouter} from 'next/router';
-import {setCookie} from 'cookies-next';
+import {deleteCookie, getCookie, setCookie} from 'cookies-next';
+import Link from 'next/link';
 
 const allError = ['oke', 'error_user', 'error_pass'];
 
@@ -41,7 +42,8 @@ export default function LoginPage() {
             if (response.message == 'oke') {
                 // Đăng nhập thành công, có thể thực hiện các thao tác sau đăng nhập
                 setCookie('id_nguoidung', response.id);
-                router.back();
+                router.push(getCookie('currentPage') || '/');
+                deleteCookie('currentPage');
             } else if (response.message == 'error_username') {
                 // báo các trường hợp sai mật khẩu hay tài khoản
                 setError(allError[1]);
@@ -62,7 +64,7 @@ export default function LoginPage() {
                 <div className={login.container}>
                     <div className={login.form_login}>
                         <div className={login.title}>Đăng nhập</div>
-                        <form method="post" onSubmit={(e) => handleSubmit(e)}>
+                        <form onSubmit={(e) => handleSubmit(e)}>
                             <input
                                 type="text"
                                 className={login.input}
@@ -98,9 +100,12 @@ export default function LoginPage() {
                         <div className={login.sub}>
                             <p className={login.sub_title}>
                                 Bạn chưa có tài khoản?{' '}
-                                <a className={login.sub_link} href="/register">
+                                <Link
+                                    className={login.sub_link}
+                                    href="/register"
+                                >
                                     Đăng ký
-                                </a>
+                                </Link>
                             </p>
                         </div>
                     </div>

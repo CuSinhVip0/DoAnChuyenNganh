@@ -1,0 +1,48 @@
+.container {
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item {
+    flex: 50%;
+    padding: 10px 24px;
+    box-sizing: border-box;
+}
+
+.item_title {
+    color: #003553;
+    font-weight: 600;
+    padding: 12px 0px;
+}
+
+.item_input_container {
+    position: relative;
+}
+
+.item_input {
+    appearance: none;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    box-sizing: border-box;
+    height: 45px;
+    color: #003553;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.item_input::placeholder {
+    color: #cbc7c7;
+}
+
+.item_input_icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 16px;
+    right: 0;
+}

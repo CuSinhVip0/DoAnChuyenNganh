@@ -28,26 +28,27 @@
     color: #40a9ff;
 }
 
-.content_wrapper {
-    display: flex;
-  }
+
   
   .custom_icon {
     color: #b4b4b4; 
     margin-right: 5px ;
   }
-  .strong_section span {
-    width: 28px;
-    height: 18px;
-    display: inline-block; 
+  .container{ 
+    height: 35px;
+    margin: 0px;
+}
+  .container strong {
+
+    display: inline-block;
+    width: 150px; 
   }
-  .strong_section {
-    flex: 4;
+
+  .container p {
+    display: inline-block;
+    margin-left: 2px; 
   }
-  
-  .weak_section {
-    flex: 6;
-  }
+
 
 .close_button {
 
