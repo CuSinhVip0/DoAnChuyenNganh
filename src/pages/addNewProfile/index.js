@@ -3,8 +3,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import React, {useState} from 'react';
-import DaTungKhamForm from '../../component/addNewProfile/DaTungKhamForm';
-import ChuaTungKhamForm from '../../component/addNewProfile/ChuaTungKhamForm';
+// import DaTungKhamForm from '../../component/addNewProfile/DaTungKhamForm';
+// import ChuaTungKhamForm from '../../component/addNewProfile/ChuaTungKhamForm';
 import style from '@/styles/addNewProfile/addNewProfile.module.css';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {hasCookie} from 'cookies-next';
@@ -15,11 +15,11 @@ export const getServerSideProps = ({req, res}) => {
 };
 
 function Page(props) {
-    const [showDaTungKhamForm, setShowDaTungKhamForm] = useState(false);
+    // const [showDaTungKhamForm, setShowDaTungKhamForm] = useState(false);
 
-    const handleButtonClick = (hasPreviousExams) => {
-        setShowDaTungKhamForm(hasPreviousExams);
-    };
+    // const handleButtonClick = (hasPreviousExams) => {
+    //     setShowDaTungKhamForm(hasPreviousExams);
+    // };
     return (
         <>
             <Head>
@@ -47,21 +47,12 @@ function Page(props) {
                             <h2>Tạo mới hồ sơ</h2>
                         </div>
 
-                        <div>
-                            <button onClick={() => handleButtonClick(true)}>
-                                Đã từng khám
-                            </button>
-                            <button onClick={() => handleButtonClick(false)}>
-                                Chưa từng khám
-                            </button>
-                        </div>
-
                         {/* Hiển thị form tương ứng với lựa chọn của người dùng */}
-                        {showDaTungKhamForm ? (
+                        {/* {showDaTungKhamForm ? (
                             <DaTungKhamForm />
                         ) : (
                             <ChuaTungKhamForm />
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>
