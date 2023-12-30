@@ -5,7 +5,12 @@ import Link from 'next/link';
 import style from '@/styles/profile/profile.module.css';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUserPlus, faAddressBook} from '@fortawesome/free-solid-svg-icons';
+import {
+    faUserPlus,
+    faAddressBook,
+    faFileAlt,
+    faFileMedical,
+} from '@fortawesome/free-solid-svg-icons';
 
 import {getCookie, hasCookie} from 'cookies-next';
 import React, {useEffect, useState} from 'react';
@@ -16,7 +21,7 @@ export const getServerSideProps = async ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
 
     const response = await fetch(
-        `http://localhost:3000/api/users/patient/patientData?id=${getCookie(
+        `http://localhost:3000/api/users/patientData?id=${getCookie(
             'id_nguoidung',
             {req, res},
         )}`,
@@ -29,6 +34,10 @@ function Page(props) {
     const handleAddProfileClick = () => {
         window.location.href = '/addNewProfile';
     };
+    const [activeTab, setActiveTab] = useState('hoso');
+    const handleTabClick = (tabName) => {
+        setActiveTab(tabName);
+    };
 
     const handleEdit = () => {
         window.location.href = '/editprofile';
@@ -36,11 +45,11 @@ function Page(props) {
     const [selectedPatient, setSelectedPatient] = useState(null);
     const [patientData, setPatientData] = useState(props.patientData);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    // const [selectedPatient, setSelectedPatient] = useState(null);
+
     const handleDelete = async (patientId) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/users/patient/deleteProfile?id=${patientId}`,
+                `http://localhost:3000/api/users/deleteProfile?id=${patientId}`,
                 {
                     method: 'DELETE',
                     headers: {
@@ -50,7 +59,6 @@ function Page(props) {
             );
 
             if (response.ok) {
-                // Remove the deleted patient from the local state
                 setPatientData((prevData) => ({
                     ...prevData,
                     result: prevData.result.filter(
@@ -112,7 +120,7 @@ function Page(props) {
 
                     <div className={style.content}>
                         <div className={style.left}>
-                            <div className={style.tab_btn}>
+                            <div className={style.create_btn}>
                                 <button onClick={handleAddProfileClick}>
                                     <FontAwesomeIcon
                                         icon={faUserPlus}
@@ -120,13 +128,52 @@ function Page(props) {
                                     />
                                     Thêm hồ sơ
                                 </button>
-                                <p className={style.tab_item}>
+                            </div>
+                            <div className={style.tab_btn}>
+                                <button
+                                    onClick={() => handleTabClick('hoso')}
+                                    className={
+                                        activeTab === 'hoso'
+                                            ? `${style.tab_item} active`
+                                            : style.tab_item
+                                    }
+                                >
                                     <FontAwesomeIcon
                                         icon={faAddressBook}
                                         className={style.icon_profile}
                                     />
                                     Hồ sơ bệnh nhân
-                                </p>
+                                </button>
+                                <button
+                                    onClick={() =>
+                                        handleTabClick('phieukhambenh')
+                                    }
+                                    className={
+                                        activeTab === 'phieukhambenh'
+                                            ? `${style.tab_item} ${style.active}`
+                                            : style.tab_item
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFileMedical}
+                                        className={style.icon_profile}
+                                    />
+                                    Phiếu khám bệnh
+                                </button>
+                                <button
+                                    onClick={() => handleTabClick('benhan')}
+                                    className={
+                                        activeTab === 'benhan'
+                                            ? `${style.tab_item} active`
+                                            : style.tab_item
+                                    }
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFileAlt}
+                                        className={style.icon_profile}
+                                    />
+                                    Bệnh án
+                                </button>
                             </div>
                         </div>
 
@@ -136,42 +183,83 @@ function Page(props) {
                                 <div
                                     className={` ${style.title} text_align_center`}
                                 >
-                                    Danh sách hồ sơ bệnh nhân
+                                    {activeTab === 'hoso' &&
+                                        'Danh sách hồ sơ bệnh nhân'}
+                                    {activeTab === 'phieukhambenh' &&
+                                        'Danh sách phiếu khám bệnh'}
+                                    {activeTab === 'benhan' &&
+                                        'Danh sách bệnh án'}
                                 </div>
+
                                 <div>
-                                    {props.patientData &&
-                                    props.patientData.result.length > 0 ? (
-                                        props.patientData.result.map(
-                                            (patient) => (
-                                                <PatientInfoForm
-                                                    key={patient.id_nguoidung}
-                                                    data={patient}
-                                                    onEdit={handleEdit}
-                                                    onDelete={() =>
-                                                        handleDelete(
-                                                            patient.id_nguoidung,
-                                                        )
-                                                    }
-                                                    onViewDetails={() =>
-                                                        handleViewDetails(
-                                                            patient.id_nguoidung,
-                                                        )
-                                                    }
-                                                />
-                                            ),
-                                        )
-                                    ) : (
-                                        <p>
-                                            Bạn chưa có hồ sơ bệnh nhân. Vui
-                                            lòng tạo mới hồ sơ để được đặt khám.
-                                        </p>
-                                    )}
+                                    {activeTab === 'hoso' &&
+                                    props.patientData &&
+                                    props.patientData.result.length > 0
+                                        ? props.patientData.result.map(
+                                              (patient) => (
+                                                  <PatientInfoForm
+                                                      key={patient.id_nguoidung}
+                                                      data={patient}
+                                                      onEdit={handleEdit}
+                                                      onDelete={() =>
+                                                          handleDelete(
+                                                              patient.id_nguoidung,
+                                                          )
+                                                      }
+                                                      onViewDetails={() =>
+                                                          handleViewDetails(
+                                                              patient.id_nguoidung,
+                                                          )
+                                                      }
+                                                  />
+                                              ),
+                                          )
+                                        : activeTab === 'hoso' && (
+                                              <div className={style.nullData}>
+                                                  <div
+                                                      className={
+                                                          style.titleNull
+                                                      }
+                                                  >
+                                                      Bạn chưa có hồ sơ bệnh
+                                                      nhân. Vui lòng tạo mới hồ
+                                                      sơ để được đặt khám.
+                                                  </div>
+                                              </div>
+                                          )}
 
                                     {isDialogOpen && (
                                         <ProfileDialog
                                             data={selectedPatient}
                                             onClose={handleDialogClose}
                                         />
+                                    )}
+                                    {activeTab === 'phieukhambenh' ? (
+                                        <div>day la phieu kham</div>
+                                    ) : (
+                                        activeTab === 'phieukhambenh' && (
+                                            <div className={style.nullData}>
+                                                <div
+                                                    className={style.titleNull}
+                                                >
+                                                    Bạn chưa có thông tin phiếu
+                                                    khám
+                                                </div>
+                                            </div>
+                                        )
+                                    )}
+                                    {activeTab === 'benhan' ? (
+                                        <div>day la danh sach benh an</div>
+                                    ) : (
+                                        activeTab === 'benhan' && (
+                                            <div className={style.nullData}>
+                                                <div
+                                                    className={style.titleNull}
+                                                >
+                                                    Bạn chưa có benh an
+                                                </div>
+                                            </div>
+                                        )
                                     )}
                                 </div>
                             </div>
