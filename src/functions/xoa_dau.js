@@ -15,3 +15,8 @@ export function xoa_dau(str) {
     str = str.replace(/Đ/g, 'D');
     return str;
 }
+
+export function format_date(date) {
+    var data = new Date(date);
+    return data.toISOString().split('T')[0].split('-').reverse().join(' / ');
+}

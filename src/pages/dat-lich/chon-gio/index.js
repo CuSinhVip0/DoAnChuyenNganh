@@ -143,7 +143,7 @@ function Page(props) {
                                             <div className={style.item_content}>
                                                 <p>
                                                     Ngày khám:{' '}
-                                                    {router.query['id_ngay']}
+                                                    {router.query['ngay']}
                                                 </p>
                                             </div>
                                         </li>

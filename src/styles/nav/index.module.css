@@ -45,7 +45,8 @@
 .up_search {
     padding: 12px 20px;
     border: none;
-    border-radius: 12px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
     min-width: 300px;
     outline: 1px solid #ccc;
     font-size: 16px;
@@ -58,6 +59,28 @@
     transform: translateY(-50%);
     color: #00b5f1;
     width: 25px;
+}
+.up_search_btn {
+    position: absolute;
+    left: 100%;
+    padding: 12px 20px;
+    background-color: #02daff;
+    border: none;
+    height: 100%;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    outline: 1px solid #02daff;
+
+    font-size: 16px;
+}
+
+.up_search_btn:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.up_search_btn .up_search_icon {
+    color: white;
 }
 
 .up_search:focus {

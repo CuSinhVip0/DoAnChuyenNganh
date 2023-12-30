@@ -22,6 +22,8 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 
 import dataCountry from '../../../../public/data/data';
 
+import {format_date} from '@/functions/xoa_dau';
+
 export async function getServerSideProps({req, res}) {
     const hascookie = hasCookie('id_nguoidung', {req, res});
     const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
@@ -41,8 +43,8 @@ function Page(props) {
 
     useEffect(() => {
         if (!props.hascookie) {
-            if (!hasCookie('currentPage')) {
-                setCookie('currentPage', router.asPath);
+            if (!sessionStorage.getItem('currentPage')) {
+                sessionStorage.setItem('currentPage', router.asPath);
             }
             router.push('/login');
         }
@@ -58,6 +60,7 @@ function Page(props) {
     useEffect(() => {
         infor();
     }, []);
+    console.log(data);
 
     async function handlePayment(id) {
         const result = await fetch(
@@ -356,17 +359,9 @@ function Page(props) {
                                                                         thanhtoan.body_item_value
                                                                     }
                                                                 >
-                                                                    {data.ngay_kham
-                                                                        .split(
-                                                                            'T',
-                                                                        )[0]
-                                                                        .split(
-                                                                            '-',
-                                                                        )
-                                                                        .reverse()
-                                                                        .join(
-                                                                            ' / ',
-                                                                        )}
+                                                                    {format_date(
+                                                                        data.ngay_kham,
+                                                                    )}
                                                                 </div>
                                                             </li>
                                                             <li

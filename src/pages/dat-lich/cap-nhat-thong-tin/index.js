@@ -45,8 +45,8 @@ function Page(props) {
     const router = useRouter();
     useEffect(() => {
         if (!props.hascookie) {
-            if (!hasCookie('currentPage')) {
-                setCookie('currentPage', router.asPath);
+            if (!sessionStorage.getItem('currentPage')) {
+                sessionStorage.setItem('currentPage', router.asPath);
             }
             router.push('/login');
         }

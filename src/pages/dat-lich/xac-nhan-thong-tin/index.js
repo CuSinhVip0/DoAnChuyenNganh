@@ -46,6 +46,7 @@ function Page(props) {
     const [data, setData] = useState();
     const [id, setId] = useState();
     const router = useRouter();
+
     useEffect(() => {
         if (!props.hascookie) {
             if (!sessionStorage.getItem('currentPage')) {
@@ -53,6 +54,8 @@ function Page(props) {
             }
             router.push('/login');
         }
+    }, [props.hascookie]);
+    useEffect(() => {
         setData(JSON.parse(sessionStorage.getItem('query_lich')));
     }, [props.hascookie]);
 

@@ -13,6 +13,8 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faFolderOpen} from '@fortawesome/free-regular-svg-icons';
 
+import {format_date} from '@/functions/xoa_dau';
+
 export async function getServerSideProps({req, res}) {
     const hascookie = hasCookie('id_nguoidung', {req, res});
     return {
@@ -26,12 +28,13 @@ function Page(props) {
 
     useEffect(() => {
         if (!props.hascookie) {
-            if (!hasCookie('currentPage')) {
-                setCookie('currentPage', router.asPath);
+            if (!sessionStorage.getItem('currentPage')) {
+                sessionStorage.setItem('currentPage', router.asPath);
             }
             router.push('/login');
         }
     }, [props.hascookie]);
+
     const infor = async () => {
         const x = await fetch(
             `http://localhost:3000/api/users/lichKham/getPhieuKham?id=${router.query.id}`,
@@ -162,11 +165,9 @@ function Page(props) {
                                                 <div
                                                     className={`${chitiet.item_right} font_color-1abc9c`}
                                                 >
-                                                    {data.ngay_kham
-                                                        .split('T')[0]
-                                                        .split('-')
-                                                        .reverse()
-                                                        .join('/')}
+                                                    {format_date(
+                                                        data.ngay_kham,
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className={chitiet.item_item}>

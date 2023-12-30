@@ -8,6 +8,7 @@ import user from '../../public/user.svg';
 import {FaRegCircleXmark} from 'react-icons/fa6';
 import {FaCaretDown} from 'react-icons/fa';
 import {FiLogOut} from 'react-icons/fi';
+import {MdOutlineSearch} from 'react-icons/md';
 
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
@@ -94,24 +95,50 @@ export default function Nav({hascookie}) {
                     </Link>
                 </div>
                 <div className={nav.right}>
-                    <div className={nav.up}>
-                        <div style={{position: 'relative'}}>
-                            <input
-                                type="text"
-                                value={valueSearch ? valueSearch : ''}
-                                className={nav.up_search}
-                                placeholder="Search"
-                                onChange={(e) => {
-                                    setValueSearch(e.target.value);
-                                }}
-                            />
-                            {valueSearch && (
-                                <FaRegCircleXmark
-                                    className={nav.up_search_icon}
-                                    onClick={() => setValueSearch('')}
-                                />
+                    <div
+                        className={`${nav.up} ${
+                            router.pathname == '/search' ||
+                            router.pathname == '/'
+                                ? 'flex-end'
+                                : ''
+                        }`}
+                    >
+                        {router.pathname !== '/search' &&
+                            router.pathname !== '/' && (
+                                <div style={{position: 'relative'}}>
+                                    <input
+                                        type="text"
+                                        value={valueSearch ? valueSearch : ''}
+                                        className={nav.up_search}
+                                        placeholder="Search"
+                                        onChange={(e) => {
+                                            setValueSearch(e.target.value);
+                                        }}
+                                    />
+                                    {valueSearch && (
+                                        <FaRegCircleXmark
+                                            className={nav.up_search_icon}
+                                            onClick={() => setValueSearch('')}
+                                        />
+                                    )}
+                                    <button
+                                        disabled={!valueSearch}
+                                        onClick={() => {
+                                            router.replace({
+                                                pathname: '/search',
+                                                query: {q: valueSearch},
+                                            });
+                                        }}
+                                        className={`${nav.up_search_btn}  ${
+                                            !valueSearch && 'background_eee'
+                                        }`}
+                                    >
+                                        <MdOutlineSearch
+                                            className={nav.up_search_icon}
+                                        />
+                                    </button>
+                                </div>
                             )}
-                        </div>
 
                         <ul className={nav.up_items}>
                             {!hascookie ? (
@@ -146,6 +173,12 @@ export default function Nav({hascookie}) {
                                                 sessionStorage.setItem(
                                                     'currentPage',
                                                     router.pathname,
+                                                );
+                                                sessionStorage.setItem(
+                                                    'queryCurrentPage',
+                                                    JSON.stringify(
+                                                        router.query,
+                                                    ),
                                                 );
                                             }}
                                         >

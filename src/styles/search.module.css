@@ -1,0 +1,194 @@
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #e8f2f7;
+}
+.container {
+    padding-top: 135px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 32px;
+    margin-bottom: 30px;
+}
+
+.header {
+    width: 1140px;
+    font-size: 20px;
+}
+.title {
+    color: #00b5f1;
+    font-weight: 700;
+    font-size: 39px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.input {
+    width: 800px;
+    position: relative;
+}
+
+.up_search {
+    box-sizing: border-box;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    outline: 1px solid #ccc;
+    font-size: 16px;
+}
+.up_search_icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00b5f1;
+    width: 25px;
+}
+
+.up_search:focus {
+    outline: 1px solid #00b5f1;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.item {
+    border-radius: 20px;
+    background: white;
+    padding: 24px;
+}
+
+.item_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.item_title_left {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.item_content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.user {
+    padding: 12px;
+    display: flex;
+    gap: 16px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+.user:hover {
+    border-color: #00b5f1;
+    cursor: pointer;
+}
+
+.user_img {
+    width: 142px;
+    height: 142px;
+}
+
+.user_about {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.about_name {
+    font-size: 24px;
+}
+.age {
+    font-size: 20px;
+}
+
+.about_specialist {
+    padding: 8px 12px;
+    color: white;
+    font-weight: 600;
+    border-radius: 20px;
+    width: max-content;
+}
+
+.depart {
+    padding: 12px;
+    display: flex;
+    gap: 16px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+
+.depart_about {
+    flex: 7;
+}
+
+.depart_about_name {
+    font-size: 24px;
+    font-weight: 400;
+    color: #00b5f1;
+}
+
+.depart_about_des {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid #00b5f1;
+    border-radius: 12px;
+}
+
+.depart_button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.depart_button_up {
+    text-decoration: none;
+    width: max-content;
+    padding: 8px 12px;
+    color: white;
+    font-weight: 600;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #00b5f1;
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+}
+
+.depart_button_up:hover {
+    background: white;
+    color: #003553;
+    cursor: pointer;
+}
+
+.depart_button_below {
+    margin-top: 12px;
+    padding: 8px 12px;
+    color: #003553;
+    font-weight: 600;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #00b5f1;
+}
+
+.depart_button_below:hover {
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    color: white;
+    cursor: pointer;
+}

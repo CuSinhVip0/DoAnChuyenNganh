@@ -1,0 +1,8 @@
+.text {
+    color: #003553;
+    text-shadow: 0 4px 4px rgba(104, 125, 199, 0.2);
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+}

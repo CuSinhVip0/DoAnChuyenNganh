@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    position: relative;
 }
 
 ul {
@@ -95,6 +96,10 @@ hr {
 
 /* font */
 
+.textBold {
+    font-weight: 700;
+}
+
 .textUppercase {
     text-transform: uppercase;
 }
@@ -154,7 +159,15 @@ hr {
     background: linear-gradient(36deg, #00b5f1, #00e0ff);
 }
 
+.background_eee {
+    background-color: #eee !important;
+    outline-color: #ccc !important;
+}
 /* end background */
+
+.flex-end {
+    justify-content: flex-end !important;
+}
 
 @keyframes a {
     0% {
@@ -204,4 +217,26 @@ hr {
         background-color: rgb(165, 165, 165);
         box-shadow: none;
     }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

@@ -42,8 +42,15 @@ export default function LoginPage() {
             if (response.message == 'oke') {
                 // Đăng nhập thành công, có thể thực hiện các thao tác sau đăng nhập
                 setCookie('id_nguoidung', response.id);
-                router.push(getCookie('currentPage') || '/');
-                deleteCookie('currentPage');
+                router.push({
+                    pathname: sessionStorage.getItem('currentPage') || '/',
+                    query:
+                        JSON.parse(
+                            sessionStorage.getItem('queryCurrentPage'),
+                        ) || null,
+                });
+                sessionStorage.removeItem('currentPage');
+                sessionStorage.removeItem('queryCurrentPage');
             } else if (response.message == 'error_username') {
                 // báo các trường hợp sai mật khẩu hay tài khoản
                 setError(allError[1]);

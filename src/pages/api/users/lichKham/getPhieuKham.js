@@ -13,7 +13,11 @@ export default async function handler(req, res) {
             'Select * from phieu_kham_benh join patient on phieu_kham_benh.id_nguoiBenh = patient.id_nguoidung join khoa on phieu_kham_benh.id_Khoa = khoa.id_khoa where id_phieuKham = ?',
             [id],
         );
+        let results = result[0].ngay_kham;
+        let date = new Date(results);
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
 
+        result[0].ngay_kham = date.toString();
         res.status(200).json({result: result});
     } catch (error) {
         //không cung cấp dữ liệu

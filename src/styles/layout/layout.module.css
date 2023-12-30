@@ -1,8 +1,8 @@
 .wrapper {
     width: 100%;
     min-height: 100vh;
-    padding-top: 150px;
-    padding-bottom: 50px;
+    padding-top: 135px;
+    padding-bottom: calc(100vh - (100vh - 150px));
     display: flex;
     justify-content: center;
     position: relative;
@@ -34,5 +34,3 @@
     justify-content: center;
     gap: 36px;
 }
-
-
