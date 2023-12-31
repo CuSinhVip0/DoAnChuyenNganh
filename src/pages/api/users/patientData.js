@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         console.log(id);
 
         const [rows] = await connection.execute(
-            'SELECT id_nguoidung, ten, ngay_sinh, sdt, gioi_tinh, bhyt, email, dia_chi FROM patient WHERE id_nguoidung LIKE ?',
+            'SELECT * FROM patient WHERE id_nguoidung LIKE ?',
             [id],
         );
         // Gửi dữ liệu bệnh nhân dưới dạng JSON

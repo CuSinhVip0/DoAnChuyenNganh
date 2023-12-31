@@ -8,7 +8,13 @@ import user from '../../public/user.svg';
 import {FaRegCircleXmark} from 'react-icons/fa6';
 import {FaCaretDown} from 'react-icons/fa';
 import {FiLogOut} from 'react-icons/fi';
-
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+    faUserPlus,
+    faAddressBook,
+    faFileAlt,
+    faFileMedical,
+} from '@fortawesome/free-solid-svg-icons';
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
 
@@ -17,6 +23,9 @@ export default function Nav({hascookie}) {
     const left = useRef();
     const router = useRouter();
     const [valueSearch, setValueSearch] = useState();
+    const handleButtonClick = () => {
+        window.location.href = '/profile';
+    };
     const handleLogout = () => {
         // Xóa cookie 'id_nguoidung'
         deleteCookie('id_nguoidung');
@@ -167,6 +176,22 @@ export default function Nav({hascookie}) {
                                         className={`${nav.sub} ${nav.sub_avatar}`}
                                     >
                                         <ul className={nav.sub_items}>
+                                            <li className={nav.sub_item}>
+                                                <button
+                                                    onClick={handleButtonClick}
+                                                    className={
+                                                        nav.sub_item_button
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faAddressBook}
+                                                        className={
+                                                            nav.sub_item_icon
+                                                        }
+                                                    />
+                                                    Hồ sơ bệnh nhân
+                                                </button>
+                                            </li>
                                             <li className={nav.sub_item}>
                                                 <button
                                                     onClick={handleLogout}

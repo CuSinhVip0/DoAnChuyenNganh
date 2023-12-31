@@ -61,7 +61,6 @@
     color: #1da1f2;
 }
 
-.tab_btn button:active,
 .tab_btn button.active{
     background-color: white;
     border-left: 3px solid #00b5f1;

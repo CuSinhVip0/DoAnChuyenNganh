@@ -11,30 +11,35 @@ export default async function handler(req, res) {
         const profile = req.body;
 
         const x = await connection.execute(
-            'update patient set ten = ?,dia_chi = ?, gioi_tinh = ? , ngay_sinh = ?, sdt = ? , email = ? where id_nguoidung=?',
+            'update patient set ten = ?, ngay_sinh = ?, sdt = ?, gioi_tinh = ?, email = ?, bhyt = ?, dia_chi = ? WHERE id_nguoidung = ?',
             [
                 profile.ten,
-                `${profile.nha}, ${profile.xa}, ${profile.huyen}, ${profile.tinh}`,
-                profile.gioitinh,
-                new Date(profile.ngay)
+                new Date(profile.ngay_sinh)
                     .toISOString()
                     .slice(0, 19)
                     .replace('T', ' '),
                 profile.sdt,
-                profile.mail,
+                profile.gioi_tinh,
+                profile.email,
+                profile.bhyt,
+                profile.dia_chi,
                 profile.id,
             ],
         );
-        res.status(200).json({x: x});
+        if (result && result.affectedRows === 1) {
+            res.status(200).json({message: 'Cập nhật thông tin thành công'});
+        } else {
+            res.status(500).json({
+                error: 'Cập nhật thông tin không thành công',
+            });
+        }
     } catch (error) {
-        //không cung cấp dữ liệu
-        // Ghi log lỗi để debug
-        console.error('Lỗi trong quá trình đăng nhập:', error);
-
-        // Cung cấp thông báo lỗi chi tiết hơn cho client
+        console.error(
+            'Lỗi trong quá trình cập nhật thông tin bệnh nhân:',
+            error,
+        );
         res.status(500).json({error: 'Lỗi máy chủ nội bộ'});
     } finally {
-        // Đóng kết nối với cơ sở dữ liệu
         connection.end();
     }
 }

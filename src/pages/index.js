@@ -11,7 +11,6 @@ export async function getServerSideProps({req, res}) {
 }
 
 export default function Page(props) {
-    
     return (
         <>
             <Head>
@@ -22,9 +21,6 @@ export default function Page(props) {
                 <Link href={'/dat-lich/chon-khoa'}> Đặt lịch</Link>
                 <br />
                 <Link href={'/bmi'}> BMI</Link>
-                <br />
-                <Link href={'/profile'}> Ho so benh nhan</Link>
-                <br />
                 <br />
             </div>
         </>

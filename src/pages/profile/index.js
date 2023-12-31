@@ -16,6 +16,7 @@ import {getCookie, hasCookie} from 'cookies-next';
 import React, {useEffect, useState} from 'react';
 import PatientInfoForm from '../../component/profile/PatientInfoForm';
 import ProfileDialog from '@/component/profile/ProfileDialog';
+import MedicalRecordForm from '../../component/MedicalRecordForm';
 
 export const getServerSideProps = async ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
@@ -134,7 +135,7 @@ function Page(props) {
                                     onClick={() => handleTabClick('hoso')}
                                     className={
                                         activeTab === 'hoso'
-                                            ? `${style.tab_item} active`
+                                            ? `${style.tab_item} ${style.active}`
                                             : style.tab_item
                                     }
                                 >
@@ -164,7 +165,7 @@ function Page(props) {
                                     onClick={() => handleTabClick('benhan')}
                                     className={
                                         activeTab === 'benhan'
-                                            ? `${style.tab_item} active`
+                                            ? `${style.tab_item} ${style.active}`
                                             : style.tab_item
                                     }
                                 >
@@ -249,7 +250,7 @@ function Page(props) {
                                         )
                                     )}
                                     {activeTab === 'benhan' ? (
-                                        <div>day la danh sach benh an</div>
+                                        <MedicalRecordForm />
                                     ) : (
                                         activeTab === 'benhan' && (
                                             <div className={style.nullData}>
