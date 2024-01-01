@@ -16,7 +16,8 @@ import {getCookie, hasCookie} from 'cookies-next';
 import React, {useEffect, useState} from 'react';
 import PatientInfoForm from '../../component/profile/PatientInfoForm';
 import ProfileDialog from '@/component/profile/ProfileDialog';
-import MedicalRecordForm from '../../component/MedicalRecordForm';
+import MedicalRecordForm from '../../component/profile/MedicalRecordForm';
+import PhieuKhamBenh from '@/component/profile/PhieuKhamBenh';
 
 export const getServerSideProps = async ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
@@ -236,7 +237,9 @@ function Page(props) {
                                         />
                                     )}
                                     {activeTab === 'phieukhambenh' ? (
-                                        <div>day la phieu kham</div>
+                                        <div>
+                                            <PhieuKhamBenh />
+                                        </div>
                                     ) : (
                                         activeTab === 'phieukhambenh' && (
                                             <div className={style.nullData}>
@@ -250,7 +253,10 @@ function Page(props) {
                                         )
                                     )}
                                     {activeTab === 'benhan' ? (
-                                        <MedicalRecordForm />
+                                        <div>
+                                            <MedicalRecordForm />
+                                            <MedicalRecordForm />
+                                        </div>
                                     ) : (
                                         activeTab === 'benhan' && (
                                             <div className={style.nullData}>

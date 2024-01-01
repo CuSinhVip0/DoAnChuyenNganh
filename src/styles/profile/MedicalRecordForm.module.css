@@ -6,3 +6,30 @@
     background-color: #fff;
     position: relative;
 }
+
+.table_container{
+    width: 100%;
+
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    font-size: 12px;
+    background-color: #f2f2f2;
+  }
+  
+  .table td {
+    font-size: 10px;
+    background-color: #fff;
+  }
