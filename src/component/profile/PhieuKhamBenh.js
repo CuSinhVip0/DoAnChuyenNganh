@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from '@/styles/profile/PhieuKhamBenh.module.css';
 const PhieuKhamBenh = () => {
     return (
-        <div>
-            <form>
+        <div className={styles.form_container}>
+            <div>
                 Nguyen Van A
                 <form>
                     <div>
@@ -25,7 +26,7 @@ const PhieuKhamBenh = () => {
                         <p>fafas</p>
                     </div>
                 </form>
-            </form>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,8 @@
+.form_container{
+    border-radius: 16px;
+    border: 1px solid #fff; 
+    padding: 20px;
+    margin: 20px 0 0;
+    background-color: #fff;
+    position: relative;
+}   
