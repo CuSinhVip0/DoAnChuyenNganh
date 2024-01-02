@@ -1,0 +1,242 @@
+.wrapper {
+    min-height: 65vh;
+    background: #e8f2f7;
+    width: 100%;
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 1140px;
+}
+
+.route {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.route_link {
+    font-size: 16px;
+    color: #003553;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.content {
+    margin: auto;
+    width: 836px;
+}
+
+.title {
+    color: #00b5f1;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 42px;
+}
+
+.right_button {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: #003553;
+    cursor: pointer;
+}
+
+.right_button:hover {
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    color: white;
+}
+
+/* form bmi */
+#formViewResult {
+    display: block;
+    margin-top: 0em;
+}
+
+.check_bmi_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.check_bmi_box h3 {
+    color: #00b5f1;
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 0 0 30px;
+}
+
+.check_bmi_box .box {
+    background-color: #ffffff;
+    width: calc((100% - 40px) / 3);
+    margin-bottom: 24px;
+    padding: 24px 0 35px;
+    text-align: center;
+    border: 2px solid #f5f5f5;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+.check_bmi_box .box_gioiTinh,
+.box_height,
+.box_weight {
+    padding-bottom: 16px;
+}
+
+.empty {
+    color: #999;
+    font-style: italic;
+}
+
+.results {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.text {
+    font-size: 1em;
+}
+
+.hidden {
+    display: none;
+}
+
+/* .slider {
+    width: 25%;
+    margin: 0 auto;
+} */
+
+.actions {
+    margin-top: 20px;
+}
+
+.actions button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.btn_primary {
+    background-color: #00b5f1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn_outline {
+    background-color: white;
+    border: 1px solid #00b5f1;
+    color: #00b5f1;
+    border-radius: 5px;
+}
+
+.btn_primary .btn_outline:hover {
+    background: #003553;
+}
+
+.result {
+    width: 100%;
+    background-color: #cee8fa;
+    border-radius: 8px;
+    margin-top: 30px;
+    position: relative;
+    min-height: 140px;
+}
+
+.view {
+    display: flex;
+    gap: 30px;
+    min-height: 140px;
+}
+
+.left {
+    flex: 1;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.right {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 12px;
+}
+.log {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(239, 239, 239, 0.7);
+    backdrop-filter: blur(2px);
+}
+
+.details {
+    margin: 30px 0;
+    padding: 32px;
+    color: #003553;
+    border: 1px solid #cee8fa;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.details_title {
+    font-size: 24px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.details_para {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.details_list {
+    margin: 24px 0;
+    font-weight: 700;
+}
+
+.details_img {
+    width: 100%;
+    height: fit-content;
+    object-fit: cover;
+}
+
+.details_items {
+    list-style: circle;
+    display: flex;
+    flex-direction: row;
+    list-style-position: outside; /* Đặt ký hiệu danh sách nằm ngoài và thẳng hàng với nội dung */
+    padding-left: 20px; /* Điều chỉnh khoảng cách để phù hợp */
+    margin: 0;
+}
+
+.flex_column {
+    display: flex; /* Sử dụng flexbox */
+    flex-direction: column; /* Bố trí theo chiều dọc */
+    flex: 1;
+}
+
+.details_items li {
+    flex: 4 1;
+}

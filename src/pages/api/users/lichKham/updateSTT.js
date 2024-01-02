@@ -2,7 +2,7 @@ import mysql from 'mysql2/promise';
 
 export const gioKham = [
     {gio: '07:00 - 07:30', stt: [1, 2, 3]},
-    {gio: '07:30 - 08:80', stt: [4, 5, 6, 7, 8, 9]},
+    {gio: '07:30 - 08:30', stt: [4, 5, 6, 7, 8, 9]},
     {gio: '08:30 - 09:30', stt: [10, 11, 12, 13, 14, 15]},
     {gio: '09:30 - 10:30', stt: [16, 17, 18, 19, 20, 21]},
     {gio: '10:30 - 11:00', stt: [22, 23, 24]},
@@ -45,18 +45,19 @@ export default async function handler(req, res) {
     });
     try {
         const id = req.body;
+
         //lay thong tin idkhoa va ngay kham de xet
         const [row] = await connection.execute(
             'select * from phieu_kham_benh where id_phieuKham = ?',
             [id.id],
         );
-        // da thanh toan
+
+        // // da thanh toan
         if (row[0].trang_thai_thanh_toan == 1) {
             res.status(200).json({result: 'Đã thanh toán'});
             return;
         }
-
-        //lay so thu tu cua gio kham ma nguoi dung dat
+        // //lay so thu tu cua gio kham ma nguoi dung dat
         const {stt} = gioKham.find((x) => row[0].gio_kham == x.gio);
 
         //vi tri cua gio trong mang  gioKham

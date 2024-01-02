@@ -12,7 +12,7 @@ export default function RegisterPage({repo}) {
     return (
         <>
             <Head>
-                <title>Register</title>
+                <title>Đăng ký</title>
             </Head>
             <div className={register.wrapper}>
                 <div className={register.container}>
@@ -100,6 +100,7 @@ export default function RegisterPage({repo}) {
                             height="500"
                             src="/register.svg"
                             alt="register_image"
+                            priority
                         />
                     </div>
                 </div>
@@ -198,7 +199,7 @@ export default function RegisterPage({repo}) {
         !handleCheck(e.target[1], password) && (x = false);
 
         !handleCheck(e.target[2], password_confirm) && (x = false);
-        console.log(x);
+
         if (x) {
             e.target.submit();
         }

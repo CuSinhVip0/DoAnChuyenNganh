@@ -31,6 +31,7 @@ export default async function handler(req, res) {
         'SELECT * FROM  khoa WHERE ten_khoa REGEXP ?',
         [`${q}`],
     );
+
     //truong hop khong tim thay bac si nao lien quan
     if (rows.length == 0 && khoa.length == 0) {
         res.status(200).json({bacsi: 'none', khoa: 'none'});
@@ -41,6 +42,10 @@ export default async function handler(req, res) {
             'SELECT * FROM nhan_vien_y_te join khoa on nhan_vien_y_te.id_khoa = khoa.id_khoa WHERE  nhan_vien_y_te.id_khoa like ? limit ?',
             [khoa[0].id_khoa, 3],
         );
+        if (khoa.length == 0) {
+            res.status(200).json({bacsi: row, khoa: 'none'});
+            return;
+        }
         res.status(200).json({bacsi: row, khoa: khoa});
         return;
     }
@@ -53,6 +58,9 @@ export default async function handler(req, res) {
                 [id, tenkhoa, 3 - rows.length],
             );
             row.map((row) => rows.push(row));
+            res.status(200).json({bacsi: rows, khoa: 'none'});
+            return;
+        } else {
             res.status(200).json({bacsi: rows, khoa: 'none'});
             return;
         }

@@ -10,7 +10,7 @@ function Footer() {
             <div className={footer.wrapper}>
                 <div className={footer.container}>
                     <div className={footer.left}>
-                        <Image width={300} src={Logo} />
+                        <Image alt="logo" width={300} src={Logo} priority />
                         <div className={footer.info}>
                             <span className={'textBold'}>Địa chỉ: </span>
                             180, Cao Lỗ, Phường 4, Quận 8, Tp. Hồ Chí Minh

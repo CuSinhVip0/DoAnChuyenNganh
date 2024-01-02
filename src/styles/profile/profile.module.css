@@ -1,0 +1,165 @@
+.wrapper {
+    min-height: 65vh;
+    background: #e8f2f7;
+    width: 100%;
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 1140px;
+}
+
+.route {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+}
+
+.route_link {
+    font-size: 16px;
+    color: #003553;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.left {
+    flex: 1;
+}
+
+.tab_btn {
+    display: grid;
+}
+
+.tab_btn button {
+    align-items: center;
+    width: 100% !important;
+    display: flex;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #e8f2f7;
+}
+
+.tab_item {
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.tab_btn button:hover {
+    background-color: white;
+    color: #1da1f2;
+}
+
+.tab_btn button:active,
+.tab_btn button.active {
+    background-color: white;
+    border-left: 3px solid #00b5f1;
+    color: #1da1f2;
+}
+
+.create_btn button {
+    align-items: center;
+    width: 100% !important;
+    display: flex;
+    padding: 12px;
+    color: white;
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.create_btn button:hover {
+    background: linear-gradient(36deg, #0097c9, #02c5df);
+}
+
+.icon_add {
+    margin-right: 8px;
+    font-size: 14px;
+    border-radius: 50%;
+    padding: 2px;
+    background-color: white;
+    color: #00b5f1;
+    transition: all 0.3s ease-in-out;
+}
+
+.icon_profile {
+    margin-right: 8px;
+    font-size: 15px;
+    padding: 2px;
+}
+
+.left_container,
+.right_container {
+    background-color: #e8f2f7;
+    border-radius: 12px;
+    padding-bottom: 10px;
+    min-height: 60vh;
+}
+
+.title {
+    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 12px 16px;
+    border-radius: 12px;
+}
+
+.left_body_item {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 16px;
+}
+.item_icon {
+    flex: 1;
+}
+
+.item_content {
+    flex: 7;
+}
+
+.item_content p {
+    margin: 0;
+}
+
+.right {
+    flex: 3;
+}
+.right_body {
+    padding: 20px;
+}
+
+/* form ho so */
+.modal_content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/*chưa có hồ sơ */
+.nullData {
+    width: 100%;
+    padding: 37px 15px;
+    text-align: center;
+}
+
+.titleNull {
+    color: #b1b1b1;
+    text-align: center;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 32px;
+}

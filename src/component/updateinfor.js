@@ -2,6 +2,7 @@ import style from '@/styles/component/updateinfor.module.css';
 import {useEffect, useState, useRef, memo} from 'react';
 import {FaAngleDown} from 'react-icons/fa6';
 import data from '../../public/data/data.json';
+import {format_date2} from '@/functions/xoa_dau';
 
 function UpdateInfor({ref_form, user}) {
     const [p, setP] = useState([]);
@@ -13,7 +14,7 @@ function UpdateInfor({ref_form, user}) {
         data.forEach((element) => {
             provide.current.innerHTML += `<option value=${element.Id}>${element.Name}</option>`;
         });
-        if (user.result[0].dia_chi == null) return;
+        if (!user) return;
 
         const diachi = user.result[0].dia_chi.split(', ');
 
@@ -29,7 +30,7 @@ function UpdateInfor({ref_form, user}) {
 
         showSubDistrict(tam2);
         subdis.current.value = diachi[diachi.length - 3];
-    }, []);
+    }, [user]);
 
     function showDistrict(tam) {
         district.current.innerHTML = '';
@@ -51,7 +52,7 @@ function UpdateInfor({ref_form, user}) {
                 <div className={style.item}>
                     <div className={style.item_title}>Họ và tên (có dấu)</div>
                     <input
-                        defaultValue={user.result[0].ten}
+                        defaultValue={user ? user.result[0].ten : null}
                         type="text"
                         name="hoten"
                         className={style.item_input}
@@ -64,8 +65,10 @@ function UpdateInfor({ref_form, user}) {
                     </div>
                     <input
                         defaultValue={
-                            user.result[0].ngay_sinh &&
-                            user.result[0].ngay_sinh.split('T')[0]
+                            user
+                                ? user.result[0].ngay_sinh &&
+                                  format_date2(user.result[0].ngay_sinh)
+                                : null
                         }
                         type="date"
                         name="ngaysinh"
@@ -75,7 +78,7 @@ function UpdateInfor({ref_form, user}) {
                 <div className={style.item}>
                     <div className={style.item_title}>Số điện thoại</div>
                     <input
-                        defaultValue={user.result[0].sdt}
+                        defaultValue={user ? user.result[0].sdt : null}
                         type="text"
                         name="sodienthoai"
                         className={style.item_input}
@@ -88,7 +91,9 @@ function UpdateInfor({ref_form, user}) {
                         <FaAngleDown className={style.item_input_icon} />
                         <select
                             name="gioitinh"
-                            defaultValue={user.result[0].gioi_tinh}
+                            defaultValue={
+                                user ? user.result[0].gioi_tinh : null
+                            }
                             className={style.item_input}
                         >
                             <option value={'nam'}>Nam</option>
@@ -101,7 +106,7 @@ function UpdateInfor({ref_form, user}) {
                     <div className={style.item_title}>Email</div>
                     <div className={style.item_input_container}>
                         <input
-                            defaultValue={user.result[0].email}
+                            defaultValue={user ? user.result[0].email : null}
                             type="email"
                             name="email"
                             className={style.item_input}
@@ -177,14 +182,16 @@ function UpdateInfor({ref_form, user}) {
                     <div className={style.item_title}>Số nhà</div>
                     <input
                         defaultValue={
-                            user.result[0].ngay_sinh &&
-                            user.result[0].dia_chi
-                                .split(', ')
-                                .slice(
-                                    0,
-                                    user.result[0].dia_chi.split(', ').length -
-                                        3,
-                                )
+                            user
+                                ? user.result[0].ngay_sinh &&
+                                  user.result[0].dia_chi
+                                      .split(', ')
+                                      .slice(
+                                          0,
+                                          user.result[0].dia_chi.split(', ')
+                                              .length - 3,
+                                      )
+                                : null
                         }
                         type="text"
                         name="sonha"

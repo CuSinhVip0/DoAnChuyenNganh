@@ -128,6 +128,10 @@ hr {
     color: #858585 !important;
 }
 
+.font_color_fff {
+    color: #fff !important;
+}
+
 .text_align_center {
     text-align: center;
 }
@@ -156,13 +160,14 @@ hr {
 /* background */
 
 .linear_00b5f1_00e0ff_36 {
-    background: linear-gradient(36deg, #00b5f1, #00e0ff);
+    background: linear-gradient(36deg, #00b5f1, #00e0ff) !important;
 }
 
 .background_eee {
     background-color: #eee !important;
     outline-color: #ccc !important;
 }
+
 /* end background */
 
 .flex-end {
@@ -239,4 +244,14 @@ hr {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 0s 600000s, color 0s 600000s;
+}
+
+/* display */
+
+.flex_display {
+    display: flex !important;
 }

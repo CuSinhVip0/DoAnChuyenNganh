@@ -47,7 +47,7 @@
     border: none;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
-    min-width: 300px;
+    min-width: 200px;
     outline: 1px solid #ccc;
     font-size: 16px;
 }
@@ -223,6 +223,7 @@
     color: #003553;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
 .sub_item_link {
     background-color: white;
@@ -237,7 +238,7 @@
 }
 
 .sub_item_icon {
-    margin-right: 4px;
+    margin-right: 8px;
     color: #003553;
 }
 /* end sub nav */

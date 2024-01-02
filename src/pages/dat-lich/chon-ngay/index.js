@@ -3,7 +3,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {hasCookie} from 'cookies-next';
+import {getCookie} from 'cookies-next';
 
 import {useRef, useEffect, useState} from 'react';
 
@@ -20,34 +20,23 @@ import {
 } from 'react-icons/fa6';
 
 export async function getServerSideProps({req, res}) {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
+    const hascookie = await fetch(
+        `http://localhost:3000/api/users/getDataUser?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
+
     const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
-    return {props: {hascookie, result: await posts.json()}};
+    return {
+        props: {hascookie: await hascookie.json(), result: await posts.json()},
+    };
 }
 
 function Page(props) {
     var indexx = 1;
     const router = useRouter();
     const [valid, setValid] = useState(false);
-
-    // // set lại query string khi back
-    // useEffect(() => {
-    //     const x = Object.entries(
-    //         JSON.parse(sessionStorage.getItem('query_lich')),
-    //     );
-    //     const x2 = x.filter((item) => item[0] != 'id_ngay');
-    //     const x3 = x2.reduce((acc, [key, value]) => {
-    //         acc[key] = value;
-    //         return acc;
-    //     }, {});
-
-    //     sessionStorage.setItem('query_lich', JSON.stringify(x3));
-
-    //     router.push({
-    //         pathname: '/dat-lich/chon-ngay',
-    //         query: JSON.parse(sessionStorage.getItem('query_lich')),
-    //     });
-    // }, []);
 
     const dateRef = useRef();
     //ngay thang nam hien tai
@@ -56,24 +45,16 @@ function Page(props) {
     const [month, setMonth] = useState(d.getMonth() + 1);
 
     //lay so ngay trong thang
-    const date = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+    const date = new Date(year, month, 0).getDate();
 
     //thu cua ngay dau tien trong thang
     var day = new Date(`${year}-${month}-1`).getDay();
     if (day == 0) day = 7;
 
     const handleaddNgay = (date) => {
-        // sessionStorage.setItem(
-        //     'query_lich',
-        //     JSON.stringify({
-        //         ...JSON.parse(sessionStorage.getItem('query_lich')),
-        //         id_ngay: date,
-        //     }),
-        // );
         router.push({
             pathname: '/dat-lich/chon-gio',
             query: {
-                // ...JSON.parse(sessionStorage.getItem('query_lich')),
                 ...router.query,
                 ngay: date,
             },
@@ -118,28 +99,41 @@ function Page(props) {
     };
     const show2 = () => {
         var day_hientai = d.getDate();
-
         const numbers = Array.from({length: date}, (_, index) => index + 1);
+
         //xu ly truoc
         return (
             <>
                 {numbers.map((item, index) => {
                     const date = `${item}/${month}/${year}`;
+                    var indexxx = indexx;
+                    indexx += 1;
                     return (
                         <li
                             onClick={() =>
-                                index + 1 > day_hientai
+                                //ko click vao cac ngay bi blur
+                                (index + 1 > day_hientai ||
+                                    month != d.getMonth() + 1) &&
+                                !(indexxx % 7 == 0 || (indexxx + 1) % 7 == 0)
                                     ? handleaddNgay(date)
                                     : null
                             }
                             key={index}
                             className={`${chonNgay.date_item} ${
-                                index + 1 <= day_hientai
+                                index + 1 <= day_hientai &&
+                                month == d.getMonth() + 1
                                     ? !valid
                                         ? 'font_color_b3b7ba'
                                         : ''
-                                    : 'item_hover'
-                            } ${indexx++ % 7 == 0 ? 'border_right_non' : ''}`}
+                                    : !(
+                                          indexxx % 7 == 0 ||
+                                          (indexxx + 1) % 7 == 0
+                                      ) && 'item_hover'
+                            } ${indexxx % 7 == 0 ? 'border_right_non' : ''} ${
+                                indexxx % 7 == 0 || (indexxx + 1) % 7 == 0
+                                    ? 'font_color_b3b7ba'
+                                    : ''
+                            } `}
                         >
                             {item}
                         </li>
@@ -223,13 +217,11 @@ function Page(props) {
                                             </div>
                                             <div className={style.item_content}>
                                                 <p>
-                                                    Bệnh viện Đại học Y Dược
-                                                    TP.HCM
+                                                    Bệnh viện MedConnect TP.HCM
                                                 </p>
                                                 <p className="font_color_858585 font_size_14">
-                                                    Cơ sở 201 Nguyễn Chí Thanh,
-                                                    Phường 12, Quận 5, TP. Hồ
-                                                    Chí Minh
+                                                    180 Cao Lỗ, Phường 4, Quận
+                                                    8, TP. Hồ Chí Minh
                                                 </p>
                                             </div>
                                         </li>

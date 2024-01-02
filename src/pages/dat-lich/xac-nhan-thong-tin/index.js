@@ -23,20 +23,21 @@ import {PiGenderIntersex} from 'react-icons/pi';
 import {FiPhone} from 'react-icons/fi';
 
 import dataCountry from '../../../../public/data/data';
+import {format_date} from '@/functions/xoa_dau';
 
-export const getServerSideProps = async ({req, res}) => {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
-    const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
-    const user = await fetch(
+export async function getServerSideProps({req, res}) {
+    const hascookie = await fetch(
         `http://localhost:3000/api/users/getDataUser?id=${getCookie(
             'id_nguoidung',
             {req, res},
         )}`,
     );
+    const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
+
     return {
-        props: {hascookie, result: await posts.json(), user: await user.json()},
+        props: {hascookie: await hascookie.json(), result: await posts.json()},
     };
-};
+}
 
 function Page(props) {
     const noti = useRef();
@@ -44,20 +45,34 @@ function Page(props) {
     const btn = useRef();
     const loader = useRef();
     const [data, setData] = useState();
+    const [user, setUser] = useState();
     const [id, setId] = useState();
     const router = useRouter();
 
     useEffect(() => {
-        if (!props.hascookie) {
+        if (props.hascookie.result.length == 0) {
             if (!sessionStorage.getItem('currentPage')) {
                 sessionStorage.setItem('currentPage', router.asPath);
             }
             router.push('/login');
         }
-    }, [props.hascookie]);
+    }, [props.hascookie.result]);
     useEffect(() => {
         setData(JSON.parse(sessionStorage.getItem('query_lich')));
     }, [props.hascookie]);
+    useEffect(() => {
+        const res = async () => {
+            const x = await fetch(
+                `http://localhost:3000/api/users/getDataPatient?id=${sessionStorage.getItem(
+                    'id_user',
+                )}`,
+            ).then((response) => {
+                return response.json();
+            });
+            setUser(x);
+        };
+        res();
+    }, []);
 
     async function handleSave() {
         const x = await fetch(`http://localhost:3000/api/users/datLich`, {
@@ -67,7 +82,7 @@ function Page(props) {
             },
             body: JSON.stringify({
                 info: data,
-                id_nguoibenh: props.user.result[0].id_nguoidung,
+                id_nguoibenh: user.result[0].id_nguoidung,
             }),
         }).then((response) => {
             return response.json();
@@ -90,7 +105,7 @@ function Page(props) {
         });
 
     return (
-        props.hascookie && (
+        props.hascookie.result && (
             <>
                 <Head>
                     <title>Xác nhận thông tin - Đặt lịch khám bệnh</title>
@@ -139,9 +154,9 @@ function Page(props) {
                             <MdKeyboardArrowRight className="mlr_4px" />
                             <Link
                                 className={style.route_link}
-                                href={'/dat-lich/cap-nhat-thong-tin'}
+                                href={'/chon-ho-so'}
                             >
-                                Cập nhật thông tin
+                                Chọn hồ sơ
                             </Link>
                             <MdKeyboardArrowRight className="mlr_4px" />
                             <Link
@@ -176,13 +191,12 @@ function Page(props) {
                                                     }
                                                 >
                                                     <p>
-                                                        Bệnh viện Đại học Y Dược
+                                                        Bệnh viện MedConnect
                                                         TP.HCM
                                                     </p>
                                                     <p className="font_color_858585 font_size_14">
-                                                        Cơ sở 201 Nguyễn Chí
-                                                        Thanh, Phường 12, Quận
-                                                        5, TP. Hồ Chí Minh
+                                                        180 Cao Lỗ, Phường 4,
+                                                        Quận 8, TP. Hồ Chí Minh
                                                     </p>
                                                 </div>
                                             </li>
@@ -276,7 +290,7 @@ function Page(props) {
                                         />
                                     </div>
                                     <div className={style.right_body}>
-                                        {props.user.result && (
+                                        {user && user.result && (
                                             <ul className={xacNhan.items_infor}>
                                                 <li className={xacNhan.item}>
                                                     <FaRegUser
@@ -296,10 +310,7 @@ function Page(props) {
                                                             xacNhan.item_value
                                                         }
                                                     >
-                                                        {
-                                                            props.user.result[0]
-                                                                .ten
-                                                        }
+                                                        {user.result[0].ten}
                                                     </p>
                                                 </li>
                                                 <li className={xacNhan.item}>
@@ -320,7 +331,7 @@ function Page(props) {
                                                             xacNhan.item_value
                                                         }
                                                     >
-                                                        {props.user.result[0]
+                                                        {user.result[0]
                                                             .gioi_tinh == 'nam'
                                                             ? 'Nam'
                                                             : 'Nữ'}
@@ -344,11 +355,10 @@ function Page(props) {
                                                             xacNhan.item_value
                                                         }
                                                     >
-                                                        {
-                                                            props.user.result[0].ngay_sinh.split(
-                                                                'T',
-                                                            )[0]
-                                                        }
+                                                        {format_date(
+                                                            user.result[0]
+                                                                .ngay_sinh,
+                                                        )}
                                                     </p>
                                                 </li>
                                                 <li className={xacNhan.item}>
@@ -369,10 +379,7 @@ function Page(props) {
                                                             xacNhan.item_value
                                                         }
                                                     >
-                                                        {
-                                                            props.user.result[0]
-                                                                .email
-                                                        }
+                                                        {user.result[0].email}
                                                     </p>
                                                 </li>
                                                 <li className={xacNhan.item}>
@@ -393,10 +400,7 @@ function Page(props) {
                                                             xacNhan.item_value
                                                         }
                                                     >
-                                                        {
-                                                            props.user.result[0]
-                                                                .sdt
-                                                        }
+                                                        {user.result[0].sdt}
                                                     </p>
                                                 </li>
                                                 <li className={xacNhan.item}>
@@ -418,7 +422,7 @@ function Page(props) {
                                                         }
                                                     >
                                                         {checkDataCountry(
-                                                            props.user.result[0].dia_chi.split(
+                                                            user.result[0].dia_chi.split(
                                                                 ', ',
                                                             ),
                                                         )}
@@ -441,10 +445,13 @@ function Page(props) {
                                         ref={btn}
                                         className={style.right_button_right}
                                         onClick={(e) => {
+                                            btn.current.disabled = true;
                                             btn.current &&
-                                                btn.current &&
+                                                (btn.current.style.cursor =
+                                                    'no-drop');
+                                            btn.current &&
                                                 (btn.current.style.background =
-                                                    '#212121');
+                                                    '#e8e8e8');
                                             btn_text.current &&
                                                 (btn_text.current.style.display =
                                                     'none');

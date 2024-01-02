@@ -9,6 +9,8 @@ import {FaRegCircleXmark} from 'react-icons/fa6';
 import {FaCaretDown} from 'react-icons/fa';
 import {FiLogOut} from 'react-icons/fi';
 import {MdOutlineSearch} from 'react-icons/md';
+import {RiContactsBookLine} from 'react-icons/ri';
+import {TbNotes} from 'react-icons/tb';
 
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
@@ -141,13 +143,9 @@ export default function Nav({hascookie}) {
                             )}
 
                         <ul className={nav.up_items}>
-                            {!hascookie ? (
+                            {hascookie.result.length == 0 ? (
                                 <>
-                                    <li
-                                        className={[nav.up_item, 'ptb_12'].join(
-                                            ' ',
-                                        )}
-                                    >
+                                    <li className={`${nav.up_item} ptb_12`}>
                                         <Link
                                             className={nav.up_register}
                                             href="/register"
@@ -187,38 +185,85 @@ export default function Nav({hascookie}) {
                                     </li>
                                 </>
                             ) : (
-                                <li
-                                    className={`${nav.up_item} ${nav.up_avatar}`}
-                                >
-                                    <Image
-                                        className={nav.up_item_img}
-                                        src={user}
-                                        alt="user"
-                                    />
-                                    {/* subnav */}
-                                    <div
-                                        className={`${nav.sub} ${nav.sub_avatar}`}
+                                <>
+                                    <li className={`${nav.up_item}`}>
+                                        Hello, tui là {hascookie.result[0].ten}
+                                    </li>
+                                    <li
+                                        className={`${nav.up_item} ${nav.up_avatar}`}
                                     >
-                                        <ul className={nav.sub_items}>
-                                            <li className={nav.sub_item}>
-                                                <button
-                                                    onClick={handleLogout}
-                                                    className={
-                                                        nav.sub_item_button
-                                                    }
-                                                >
-                                                    <FiLogOut
+                                        <Image
+                                            className={nav.up_item_img}
+                                            src={user}
+                                            alt="user"
+                                        />
+                                        {/* subnav */}
+                                        <div
+                                            className={`${nav.sub} ${nav.sub_avatar}`}
+                                        >
+                                            <ul className={nav.sub_items}>
+                                                <li className={nav.sub_item}>
+                                                    <div
+                                                        onClick={() => {
+                                                            router.push(
+                                                                '/profile?tab=hoso',
+                                                            );
+                                                        }}
                                                         className={
-                                                            nav.sub_item_icon
+                                                            nav.sub_item_button
                                                         }
-                                                    />{' '}
-                                                    Logout
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    {/*end subnav */}
-                                </li>
+                                                    >
+                                                        <RiContactsBookLine
+                                                            className={
+                                                                nav.sub_item_icon
+                                                            }
+                                                        />{' '}
+                                                        <span>
+                                                            Hồ sơ bệnh nhân
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li className={nav.sub_item}>
+                                                    <div
+                                                        onClick={() => {
+                                                            router.push(
+                                                                '/profile?tab=phieukhambenh',
+                                                            );
+                                                        }}
+                                                        className={
+                                                            nav.sub_item_button
+                                                        }
+                                                    >
+                                                        <TbNotes
+                                                            className={
+                                                                nav.sub_item_icon
+                                                            }
+                                                        />{' '}
+                                                        <span>
+                                                            Phiếu khám bệnh
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li className={nav.sub_item}>
+                                                    <div
+                                                        onClick={handleLogout}
+                                                        className={
+                                                            nav.sub_item_button
+                                                        }
+                                                    >
+                                                        <FiLogOut
+                                                            className={
+                                                                nav.sub_item_icon
+                                                            }
+                                                        />{' '}
+                                                        <span>Logout</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        {/*end subnav */}
+                                    </li>
+                                </>
                             )}
                         </ul>
                     </div>

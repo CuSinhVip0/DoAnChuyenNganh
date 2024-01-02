@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import {hasCookie} from 'cookies-next';
+import {getCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
 import Image from 'next/image';
 
@@ -15,14 +15,20 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FaRegCircleXmark} from 'react-icons/fa6';
 
 export async function getServerSideProps({req, res}) {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
+    const hascookie = await fetch(
+        `http://localhost:3000/api/users/getDataUser?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
     return {
-        props: {hascookie},
+        props: {hascookie: await hascookie.json()},
     };
 }
 
 function Page() {
     const router = useRouter();
+
     const [valueSearch, setValueSearch] = useState(useRouter().query.q);
     const [value, setValue] = useState();
     const result = async () => {
@@ -95,9 +101,11 @@ function Page() {
                                 <div className={Search.item_title_left}>
                                     Bác sĩ
                                 </div>
-                                <div className={Search.item_title_right}>
-                                    Xem tất cả
-                                </div>
+                                {value && value.bacsi != 'none' && (
+                                    <div className={Search.item_title_right}>
+                                        Xem tất cả
+                                    </div>
+                                )}
                             </div>
                             <div>
                                 <ul className={Search.item_content}>

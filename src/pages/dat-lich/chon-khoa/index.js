@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {hasCookie} from 'cookies-next';
+import {getCookie} from 'cookies-next';
 
 import {useRef, useEffect, useState} from 'react';
 
@@ -11,23 +11,24 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 import {FaHospitalAlt} from 'react-icons/fa';
 
 export const getServerSideProps = async ({req, res}) => {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
+    const hascookie = await fetch(
+        `http://localhost:3000/api/users/getDataUser?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
+
     const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
-    return {props: {hascookie, result: await posts.json()}};
+    return {
+        props: {hascookie: await hascookie.json(), result: await posts.json()},
+    };
 };
 
 function Page(props) {
     const khoa = useRef();
     const router = useRouter();
     const [value, setValue] = useState();
-    //dieu huong sang trang tiep theo
-    // const handleAddKhoa = (id) => {
-    //     // sessionStorage.setItem('query_lich', JSON.stringify({id_khoa: id}));
-    //     router.push({
-    //         pathname: '/dat-lich/chon-ngay',
-    //         query: {id_khoa: id},
-    //     });
-    // };
+
     useEffect(() => {
         // Prefetch the dashboard page
         router.prefetch('/dat-lich/chon-ngay');
@@ -53,6 +54,8 @@ function Page(props) {
             normalizeString(item.ten_khoa).includes(normalizedTerm),
         );
     }
+
+    //xu ly chuoi de tim kiem
     const show = () => {
         const searchResults =
             value != undefined
@@ -71,7 +74,6 @@ function Page(props) {
                             }}
                             shallow={true}
                             key={item.id_khoa}
-                            // onClick={() => handleAddKhoa(item.id_khoa)}
                         >
                             Khoa {item.ten_khoa}
                         </Link>
@@ -125,13 +127,11 @@ function Page(props) {
                                             </div>
                                             <div className={style.item_content}>
                                                 <p>
-                                                    Bệnh viện Đại học Y Dược
-                                                    TP.HCM
+                                                    Bệnh viện MedConnect TP.HCM
                                                 </p>
                                                 <p className="font_color_858585 font_size_14">
-                                                    Cơ sở 201 Nguyễn Chí Thanh,
-                                                    Phường 12, Quận 5, TP. Hồ
-                                                    Chí Minh
+                                                    180 Cao Lỗ, Phường 4, Quận
+                                                    8, TP. Hồ Chí Minh
                                                 </p>
                                             </div>
                                         </li>

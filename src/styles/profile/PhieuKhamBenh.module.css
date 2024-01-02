@@ -1,0 +1,101 @@
+.form_container {
+    border-radius: 8px;
+
+    margin-top: 20px;
+
+    position: relative;
+    cursor: pointer;
+}
+
+.select {
+    color: white;
+    display: flex;
+    padding: 10px 30px 10px;
+    align-items: center;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.form_phieu {
+    padding: 30px;
+    border-top: 1px solid #eee;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    background-color: #fff;
+    display: flex;
+    /* display: none; */
+}
+
+.cosoyte {
+    font-weight: bold;
+    color: #00b5f1;
+    margin-bottom: 20px;
+}
+
+.info {
+    flex: 3;
+}
+
+.container {
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container label {
+    display: inline-block;
+    width: 150px;
+}
+
+.container p {
+    display: inline-block;
+    margin-left: 2px;
+    font-weight: bold;
+}
+
+.trang_thai_oke {
+    color: #fff;
+    background: #3bb54a;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-align: center !important;
+    background-color: #02cd60;
+    border-radius: 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    box-sizing: border-box;
+}
+
+.trang_thai_fail {
+    color: #fff;
+    background: #e23f1a;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-align: center !important;
+    background-color: #e23f1a;
+    border-radius: 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    box-sizing: border-box;
+}
+
+.trang_thai {
+    border: 1px solid #00b5f1;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-align: center !important;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    box-sizing: border-box;
+}

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         const {id} = req.query;
 
         const [row] = await connection.execute(
-            'select * from user where id_nguoidung=?',
+            'select * from patient where id_nguoidung=?',
             [id],
         );
         res.status(200).json({result: row});

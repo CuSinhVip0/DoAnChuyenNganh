@@ -15,8 +15,43 @@ export function xoa_dau(str) {
     str = str.replace(/Đ/g, 'D');
     return str;
 }
+function show0(d) {
+    if (d >= 1 && d < 10) {
+        return '0' + d;
+    }
+    return d;
+}
 
 export function format_date(date) {
     var data = new Date(date);
-    return data.toISOString().split('T')[0].split('-').reverse().join(' / ');
+    return `${show0(data.getDate())} / ${show0(
+        data.getMonth() + 1,
+    )} / ${data.getFullYear()}`;
+}
+
+export function format_date2(date) {
+    var data = new Date(date);
+    return `${data.getFullYear()}-${show0(data.getMonth() + 1)}-${show0(
+        data.getDate(),
+    )}`;
+}
+
+export function checkDataCountry(data, dataCountry) {
+    const provide = dataCountry.filter((value) => value.Id == data[3]);
+
+    const district = provide[0].Districts.filter(
+        (value) => value.Id == data[2],
+    );
+
+    const wards = district[0].Wards.filter((value) => value.Id == data[1]);
+
+    return (
+        data[0] +
+        ',  ' +
+        wards[0].Name +
+        ',  ' +
+        district[0].Name +
+        ',  ' +
+        provide[0].Name
+    );
 }

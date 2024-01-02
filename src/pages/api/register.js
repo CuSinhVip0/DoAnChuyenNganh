@@ -17,8 +17,8 @@ export default async function handler(req, res) {
             [req.body.username, hash, 'PATIENT', id],
         );
         await connection.execute(
-            'insert into patient(id_nguoidung) values(?)',
-            [id],
+            'insert into user(id_nguoidung,ten) values(?,?)',
+            [id, 'nguoidung_' + id.split('-')[0]],
         );
         res.redirect(307, '/login');
     } catch (error) {

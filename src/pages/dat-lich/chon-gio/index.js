@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {hasCookie} from 'cookies-next';
+import {getCookie} from 'cookies-next';
 
 import {useEffect, useRef} from 'react';
 
@@ -14,31 +14,21 @@ import {FaHospitalAlt} from 'react-icons/fa';
 import {FaBriefcaseMedical} from 'react-icons/fa6';
 import {AiOutlineRollback} from 'react-icons/ai';
 
-export function getServerSideProps({req, res}) {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
-    return {props: {hascookie}};
+export async function getServerSideProps({req, res}) {
+    const hascookie = await fetch(
+        `http://localhost:3000/api/users/getDataUser?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
+
+    const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
+    return {
+        props: {hascookie: await hascookie.json(), result: await posts.json()},
+    };
 }
 function Page(props) {
     const router = useRouter();
-
-    // useEffect(() => {
-    //     const x = Object.entries(
-    //         JSON.parse(sessionStorage.getItem('query_lich')),
-    //     );
-    //     const x2 = x.filter((item) => item[0] != 'gio');
-    //     const x3 = x2.reduce((acc, [key, value]) => {
-    //         acc[key] = value;
-    //         return acc;
-    //     }, {});
-
-    //     sessionStorage.setItem('query_lich', JSON.stringify(x3));
-
-    //     router.push({
-    //         pathname: '/dat-lich/chon-gio',
-    //         query: JSON.parse(sessionStorage.getItem('query_lich')),
-    //     });
-    // }, []);
-
     const handleAddTime = (time) => {
         sessionStorage.setItem(
             'query_lich',
@@ -49,11 +39,7 @@ function Page(props) {
             }),
         );
         router.push({
-            pathname: '/dat-lich/cap-nhat-thong-tin',
-            // query: {
-            //     ...JSON.parse(sessionStorage.getItem('query_lich')),
-            //     gio: time,
-            // },
+            pathname: '/chon-ho-so',
         });
     };
 
@@ -116,13 +102,11 @@ function Page(props) {
                                             </div>
                                             <div className={style.item_content}>
                                                 <p>
-                                                    Bệnh viện Đại học Y Dược
-                                                    TP.HCM
+                                                    Bệnh viện MedConnect TP.HCM
                                                 </p>
                                                 <p className="font_color_858585 font_size_14">
-                                                    Cơ sở 201 Nguyễn Chí Thanh,
-                                                    Phường 12, Quận 5, TP. Hồ
-                                                    Chí Minh
+                                                    180 Cao Lỗ, Phường 4, Quận
+                                                    8, TP. Hồ Chí Minh
                                                 </p>
                                             </div>
                                         </li>
@@ -133,7 +117,21 @@ function Page(props) {
                                                 />
                                             </div>
                                             <div className={style.item_content}>
-                                                <p>Chuyên khoa: Tai mũi họng</p>
+                                                <p>
+                                                    Chuyên khoa:
+                                                    {props.result.data
+                                                        .filter(
+                                                            (prop) =>
+                                                                prop.id_khoa ==
+                                                                router.query[
+                                                                    'id_khoa'
+                                                                ],
+                                                        )
+                                                        .map(
+                                                            (propx) =>
+                                                                propx.ten_khoa,
+                                                        )}
+                                                </p>
                                             </div>
                                         </li>
                                         <li className={style.left_body_item}>

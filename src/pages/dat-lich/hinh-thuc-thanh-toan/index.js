@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import {hasCookie} from 'cookies-next';
+import {getCookie} from 'cookies-next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
@@ -25,11 +25,16 @@ import dataCountry from '../../../../public/data/data';
 import {format_date} from '@/functions/xoa_dau';
 
 export async function getServerSideProps({req, res}) {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
+    const hascookie = await fetch(
+        `http://localhost:3000/api/users/getDataUser?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
     const posts = await fetch('http://localhost:3000/api/khoa/getAllKhoa_name');
 
     return {
-        props: {hascookie, result: await posts.json()},
+        props: {hascookie: await hascookie.json(), result: await posts.json()},
     };
 }
 
@@ -42,13 +47,13 @@ function Page(props) {
     const btnref = useRef();
 
     useEffect(() => {
-        if (!props.hascookie) {
+        if (props.hascookie.result.length == 0) {
             if (!sessionStorage.getItem('currentPage')) {
                 sessionStorage.setItem('currentPage', router.asPath);
             }
             router.push('/login');
         }
-    }, [props.hascookie]);
+    }, [props.hascookie.result]);
     const infor = async () => {
         const x = await fetch(
             `http://localhost:3000/api/users/lichKham/getPhieuKham?id=${router.query.id}`,
@@ -60,7 +65,6 @@ function Page(props) {
     useEffect(() => {
         infor();
     }, []);
-    console.log(data);
 
     async function handlePayment(id) {
         const result = await fetch(
@@ -83,11 +87,10 @@ function Page(props) {
         }
     }
     return (
-        props.hascookie && (
+        props.hascookie.result && (
             <>
                 <Head>
                     <title>
-                        {' '}
                         Chọn hình thức thanh toán - Đặt lịch khám bệnh
                     </title>
                 </Head>
@@ -223,6 +226,7 @@ function Page(props) {
                                                                 data.dia_chi.split(
                                                                     ', ',
                                                                 ),
+                                                                dataCountry,
                                                             )}
                                                         </p>
                                                     </div>
@@ -497,7 +501,7 @@ function Page(props) {
 }
 
 export default Page;
-function checkDataCountry(data) {
+function checkDataCountry(data, dataCountry) {
     const provide = dataCountry.filter((value) => value.Id == data[3]);
 
     const district = provide[0].Districts.filter(

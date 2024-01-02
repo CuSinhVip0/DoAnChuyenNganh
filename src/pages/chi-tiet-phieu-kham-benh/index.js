@@ -1,4 +1,4 @@
-import {hasCookie, setCookie} from 'cookies-next';
+import {getCookie} from 'cookies-next';
 import Head from 'next/head';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
@@ -16,9 +16,14 @@ import {faFolderOpen} from '@fortawesome/free-regular-svg-icons';
 import {format_date} from '@/functions/xoa_dau';
 
 export async function getServerSideProps({req, res}) {
-    const hascookie = hasCookie('id_nguoidung', {req, res});
+    const hascookie = await fetch(
+        `http://localhost:3000/api/users/getDataUser?id=${getCookie(
+            'id_nguoidung',
+            {req, res},
+        )}`,
+    );
     return {
-        props: {hascookie},
+        props: {hascookie: await hascookie.json()},
     };
 }
 
@@ -27,13 +32,13 @@ function Page(props) {
     const [data, setData] = useState();
 
     useEffect(() => {
-        if (!props.hascookie) {
+        if (props.hascookie.result.length == 0) {
             if (!sessionStorage.getItem('currentPage')) {
                 sessionStorage.setItem('currentPage', router.asPath);
             }
             router.push('/login');
         }
-    }, [props.hascookie]);
+    }, [props.hascookie.result]);
 
     const infor = async () => {
         const x = await fetch(
@@ -48,7 +53,7 @@ function Page(props) {
     }, []);
 
     return (
-        props.hascookie && (
+        props.hascookie.result && (
             <>
                 <Head>
                     <title>Chi tiết phiếu khám bệnh - MedConnect</title>
@@ -69,7 +74,9 @@ function Page(props) {
                         </div>
                         <div
                             className={chitiet.button}
-                            onClick={() => router.push('')}
+                            onClick={() =>
+                                router.push('/profile?tab=phieukhambenh')
+                            }
                         >
                             <FontAwesomeIcon
                                 color="#00b5f1"

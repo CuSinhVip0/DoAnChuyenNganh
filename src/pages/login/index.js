@@ -101,7 +101,7 @@ export default function LoginPage() {
                                 className={
                                     login.input + ' ' + login.login_submit
                                 }
-                                value="Đăng nhập"
+                                value={'Đăng nhập'}
                             />
                         </form>
                         <div className={login.sub}>
@@ -122,6 +122,7 @@ export default function LoginPage() {
                             height="500"
                             src="/register.svg"
                             alt="register_image"
+                            priority
                         />
                     </div>
                 </div>
