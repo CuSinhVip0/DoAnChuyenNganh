@@ -19,7 +19,9 @@ const MedicalRecordForm = () => {
 
     return (
         <div className={styles.form_container}>
-            <div>{formData.tenNguoiBenh}</div>
+            <div className={styles.select}>
+                <span>{formData.tenNguoiBenh}</span>
+            </div>
             <div className={styles.table_container}>
                 <table className={styles.table}>
                     <thead>
@@ -34,6 +36,24 @@ const MedicalRecordForm = () => {
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>{formData.thoiGianTiepNhan}</td>
+                            <td>{formData.thoiGianRaVien}</td>
+                            <td>{formData.dichVu}</td>
+                            <td>{formData.khoa}</td>
+                            <td>{formData.phong}</td>
+                            <td>{formData.chuanDoan}</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>{formData.thoiGianTiepNhan}</td>
+                            <td>{formData.thoiGianRaVien}</td>
+                            <td>{formData.dichVu}</td>
+                            <td>{formData.khoa}</td>
+                            <td>{formData.phong}</td>
+                            <td>{formData.chuanDoan}</td>
+                            <td>...</td>
+                        </tr>
                         <tr>
                             <td>{formData.thoiGianTiepNhan}</td>
                             <td>{formData.thoiGianRaVien}</td>

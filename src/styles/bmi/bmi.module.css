@@ -77,7 +77,7 @@ background: #e8f2f7;
     margin: 0 0 30px;
 }
 
-.check_bmi_box .box {
+.box {
     background-color: #ffffff;
     width: calc((100% - 40px) / 3);
     margin-bottom: 24px;
@@ -88,10 +88,36 @@ background: #e8f2f7;
     background-position: right bottom;
 }
 
-.check_bmi_box .box_gioiTinh,
+.box_gioiTinh,
 .box_height,
 .box_weight {
     padding-bottom: 16px;
+}
+
+.radio{
+    display: flex;
+    margin: 0;
+    align-items: flex-start;
+    justify-content: space-between;
+}   
+
+.radio label{
+    color: #534E56;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 32px;
+    position: relative;
+    padding: 22px;
+}
+
+/* .radio path{
+    width:50px;
+    height: 50px;
+} */
+
+.slider{
+    margin: 20px;
+    width: 80%;
 }
 
 .empty {
@@ -112,10 +138,7 @@ background: #e8f2f7;
     display: none;
 }
 
-/* .slider {
-    width: 25%;
-    margin: 0 auto;
-} */
+
 
 .actions {
     margin-top: 20px;

@@ -1,14 +1,25 @@
 .form_container{
-    border-radius: 8px;
-    border: 1px solid #fff; 
-    padding: 20px;
-    margin: 20px 0 0;
-    background-color: #fff;
-    position: relative;
+  border-radius: 8px; 
+  border: 1px solid #fff; 
+  margin-top: 20px;
+  background-color: #fff;
+  position: relative;
+}   
+
+
+.select{
+  background: linear-gradient(36deg, #00b5f1, #00e0ff);   
+  color: #fff;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .table_container{
-    width: 100%;
+    width: 95%;
+    margin: 20px;
 
 }
 

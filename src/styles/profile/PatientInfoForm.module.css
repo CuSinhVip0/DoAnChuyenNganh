@@ -20,8 +20,13 @@
   .container p {
     display: inline-block;
     margin-left: 2px; 
+    font-weight: bold;
   }
 
+  .ten{
+    color: #00b5f1;
+    font-weight: bold;
+  }
   .action_buttons {
     display: flex;
     justify-content: flex-end;

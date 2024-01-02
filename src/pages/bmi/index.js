@@ -102,20 +102,9 @@ function Page(props) {
                                         <h3>Giới tính của bạn</h3>
                                         <div className={style.radio}>
                                             <label>
-                                                <input
-                                                    type="radio"
-                                                    name="gioiTinh"
-                                                    value="Male"
-                                                    checked={
-                                                        gioiTinh === 'Male'
-                                                    }
-                                                    onChange={() =>
-                                                        setgioiTinh('Male')
-                                                    }
-                                                />
                                                 <span>
                                                     <svg
-                                                        width="32"
+                                                        width="100%"
                                                         height="46"
                                                         viewBox="0 0 32 46"
                                                         fill="none"
@@ -126,25 +115,25 @@ function Page(props) {
                                                             fill="#D7D9DD"
                                                         />
                                                     </svg>
+                                                    <input
+                                                        type="radio"
+                                                        name="gioiTinh"
+                                                        value="Male"
+                                                        checked={
+                                                            gioiTinh === 'Male'
+                                                        }
+                                                        onChange={() =>
+                                                            setgioiTinh('Male')
+                                                        }
+                                                    />
                                                     Nam
                                                 </span>
                                             </label>
                                             <label>
-                                                <input
-                                                    type="radio"
-                                                    name="gioiTinh"
-                                                    value="Female"
-                                                    checked={
-                                                        gioiTinh === 'Female'
-                                                    }
-                                                    onChange={() =>
-                                                        setgioiTinh('Female')
-                                                    }
-                                                />
                                                 <span>
                                                     <svg
-                                                        width="39"
-                                                        height="38"
+                                                        width="100%"
+                                                        height="46"
                                                         viewBox="0 0 39 38"
                                                         fill="none"
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -154,6 +143,20 @@ function Page(props) {
                                                             fill="#D7D9DD"
                                                         />
                                                     </svg>
+                                                    <input
+                                                        type="radio"
+                                                        name="gioiTinh"
+                                                        value="Female"
+                                                        checked={
+                                                            gioiTinh ===
+                                                            'Female'
+                                                        }
+                                                        onChange={() =>
+                                                            setgioiTinh(
+                                                                'Female',
+                                                            )
+                                                        }
+                                                    />
                                                     Nữ
                                                 </span>
                                             </label>
@@ -172,40 +175,48 @@ function Page(props) {
                                         className={`${style.box}  ${style.box_height} ${style.control}`}
                                     >
                                         <h3>Chiều cao của bạn</h3>
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="200"
-                                            step="1"
-                                            value={height}
-                                            onChange={(e) =>
-                                                setHeight(
-                                                    parseInt(e.target.value),
-                                                )
-                                            }
-                                            className={style.slider}
-                                        />
                                         <span>{height} cm</span>
+                                        <div>
+                                            <input
+                                                className={style.slider}
+                                                type="range"
+                                                min="0"
+                                                max="200"
+                                                step="1"
+                                                value={height}
+                                                onChange={(e) =>
+                                                    setHeight(
+                                                        parseInt(
+                                                            e.target.value,
+                                                        ),
+                                                    )
+                                                }
+                                            />
+                                        </div>
                                     </div>
 
                                     <div
                                         className={`${style.box}  ${style.box_weight} ${style.control}`}
                                     >
                                         <h3>Cân nặng của bạn</h3>
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="200"
-                                            step="1"
-                                            value={weight}
-                                            onChange={(e) =>
-                                                setWeight(
-                                                    parseInt(e.target.value),
-                                                )
-                                            }
-                                            className={style.slider}
-                                        />
                                         <span>{weight} kg</span>
+                                        <div>
+                                            <input
+                                                className={style.slider}
+                                                type="range"
+                                                min="0"
+                                                max="200"
+                                                step="1"
+                                                value={weight}
+                                                onChange={(e) =>
+                                                    setWeight(
+                                                        parseInt(
+                                                            e.target.value,
+                                                        ),
+                                                    )
+                                                }
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className={style.actions}>

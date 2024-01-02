@@ -30,7 +30,7 @@ const PatientInfoForm = ({data, onEdit, onDelete, onViewDetails}) => {
                         />
                     </span>
                     <label>Họ và tên:</label>
-                    <p>{data.ten}</p>
+                    <p className={styles.ten}>{data.ten}</p>
                 </div>
                 <div className={styles.container}>
                     <span>
