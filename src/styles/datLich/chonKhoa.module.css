@@ -164,7 +164,7 @@
     font-family: inherit;
     font-weight: 500;
     padding: 8px 16px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     background-color: white;
     color: #003553;
@@ -191,7 +191,7 @@
     font-family: inherit;
     font-weight: 500;
     padding: 8px 16px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     background: linear-gradient(36deg, #00b5f1, #00e0ff);
     color: white;

@@ -7,6 +7,7 @@ import React, {useState} from 'react';
 import style from '@/styles/addNewProfile/addNewProfile.module.css';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {hasCookie} from 'cookies-next';
+import addProfile from '../../component/addNewProfile/addProfile';
 
 export const getServerSideProps = ({req, res}) => {
     const hascookie = hasCookie('id_nguoidung', {req, res});
@@ -39,6 +40,9 @@ function Page(props) {
                     <div className={style.content}>
                         <div className={style.title_add}>
                             <h2>TẠO MỚI HỒ SƠ</h2>
+                        </div>
+                        <div className={style.form_content}>
+                            <addProfile />
                         </div>
                     </div>
                 </div>
