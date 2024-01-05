@@ -2,6 +2,7 @@ import Head from 'next/head';
 import {getCookie} from 'cookies-next';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import dynamic from 'next/dynamic';
 
 import {useState, useRef, useEffect} from 'react';
 
@@ -22,7 +23,7 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 
 import dataCountry from '../../../../public/data/data';
 
-import {format_date} from '@/functions/xoa_dau';
+import {format_date, checkDataCountry} from '@/functions/xoa_dau';
 
 export async function getServerSideProps({req, res}) {
     const hascookie = await fetch(
@@ -37,6 +38,19 @@ export async function getServerSideProps({req, res}) {
         props: {hascookie: await hascookie.json(), result: await posts.json()},
     };
 }
+
+// test
+
+const DynamicHeader = dynamic((dataCountry, data) => import('@/component/a'), {
+    ssr: false,
+    loading: () => (
+        <>
+            <li className={`  ${style.skeleton}`}></li>
+            <li className={`  ${style.skeleton}`}></li>
+            <li className={`  ${style.skeleton}`}></li>
+        </>
+    ),
+});
 
 function Page(props) {
     const loader = useRef();
@@ -65,6 +79,7 @@ function Page(props) {
     useEffect(() => {
         infor();
     }, []);
+    console.log(data);
 
     async function handlePayment(id) {
         const result = await fetch(
@@ -142,98 +157,23 @@ function Page(props) {
                                                         }
                                                     >
                                                         <p>
-                                                            Bệnh viện Đại học Y
-                                                            Dược TP.HCM
+                                                            Bệnh viện MedConnect
+                                                            TP.HCM
                                                         </p>
                                                         <p className="font_color_858585 font_size_14">
-                                                            Cơ sở 201 Nguyễn Chí
-                                                            Thanh, Phường 12,
-                                                            Quận 5, TP. Hồ Chí
-                                                            Minh
+                                                            180 Cao Lỗ, Phường
+                                                            4, Quận 8, TP. Hồ
+                                                            Chí Minh
                                                         </p>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div
-                                        className={`${style.left_container} mt_40`}
-                                    >
-                                        <div className={style.title}>
-                                            Thông tin bệnh nhân
-                                        </div>
-                                        <div className={style.left_body}>
-                                            <ul>
-                                                <li
-                                                    className={
-                                                        style.left_body_item
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            style.item_icon
-                                                        }
-                                                    >
-                                                        <FaRegUser />
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            style.item_content
-                                                        }
-                                                    >
-                                                        <p>{data.ten}</p>
-                                                    </div>
-                                                </li>
-                                                <li
-                                                    className={
-                                                        style.left_body_item
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            style.item_icon
-                                                        }
-                                                    >
-                                                        <FiPhone />
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            style.item_content
-                                                        }
-                                                    >
-                                                        <p>{data.sdt}</p>
-                                                    </div>
-                                                </li>
-                                                <li
-                                                    className={
-                                                        style.left_body_item
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            style.item_icon
-                                                        }
-                                                    >
-                                                        <MdOutlineHome />
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            style.item_content
-                                                        }
-                                                    >
-                                                        <p>
-                                                            {checkDataCountry(
-                                                                data.dia_chi.split(
-                                                                    ', ',
-                                                                ),
-                                                                dataCountry,
-                                                            )}
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <DynamicHeader
+                                        dataCountry={dataCountry}
+                                        data={data}
+                                    />
                                 </div>
 
                                 {/* right */}
@@ -501,22 +441,3 @@ function Page(props) {
 }
 
 export default Page;
-function checkDataCountry(data, dataCountry) {
-    const provide = dataCountry.filter((value) => value.Id == data[3]);
-
-    const district = provide[0].Districts.filter(
-        (value) => value.Id == data[2],
-    );
-
-    const wards = district[0].Wards.filter((value) => value.Id == data[1]);
-
-    return (
-        data[0] +
-        ',  ' +
-        wards[0].Name +
-        ',  ' +
-        district[0].Name +
-        ',  ' +
-        provide[0].Name
-    );
-}

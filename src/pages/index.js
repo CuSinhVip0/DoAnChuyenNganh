@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import {hasCookie, getCookie} from 'cookies-next';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useRouter} from 'next/router';
+import {useSession, signIn, signOut} from 'next-auth/react';
 
 import Home from '@/styles/home.module.css';
 
@@ -18,12 +19,16 @@ export async function getServerSideProps({req, res}) {
             {req, res},
         )}`,
     );
+
     return {
-        props: {hascookie: await hascookie.json()},
+        props: {
+            hascookie: await hascookie.json(),
+        },
     };
 }
 
 export default function Page(props) {
+    const {data, status} = useSession();
     const [valueSearch, setValueSearch] = useState();
     const router = useRouter();
     return (

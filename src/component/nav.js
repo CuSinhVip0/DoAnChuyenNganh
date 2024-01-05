@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {useRef, useEffect, useState} from 'react';
+import {useRef, useEffect, useState, useLayoutEffect} from 'react';
 import nav from '@/styles/nav/index.module.css';
 import logo from '../../public/image/logo2.png';
 import user from '../../public/user.svg';
@@ -15,15 +15,20 @@ import {TbNotes} from 'react-icons/tb';
 import {deleteCookie} from 'cookies-next';
 import {useRouter} from 'next/router';
 
+import {signOut} from 'next-auth/react';
+
 export default function Nav({hascookie}) {
     const container = useRef();
     const left = useRef();
     const router = useRouter();
     const [valueSearch, setValueSearch] = useState();
-    const handleLogout = () => {
-        // Xóa cookie 'id_nguoidung'
+    const handleLogout = async () => {
         deleteCookie('id_nguoidung');
-        router.replace(router.asPath);
+        const data = await signOut({
+            redirect: false,
+            callbackUrl: router.pathname,
+        });
+        router.push(data.url);
     };
 
     useEffect(() => {
@@ -186,7 +191,13 @@ export default function Nav({hascookie}) {
                                 </>
                             ) : (
                                 <>
-                                    <li className={`${nav.up_item}`}>
+                                    <li
+                                        style={{
+                                            width: '300px',
+                                            textAlign: 'end',
+                                        }}
+                                        className={`${nav.up_item}`}
+                                    >
                                         Hello, tui là {hascookie.result[0].ten}
                                     </li>
                                     <li
@@ -271,18 +282,12 @@ export default function Nav({hascookie}) {
                     <div className={nav.down}>
                         <ul className={nav.down_items}>
                             <li className={nav.down_item}>
-                                <Link
-                                    className={nav.down_item_link}
-                                    href="/co-so-y-te"
-                                >
+                                <Link className={nav.down_item_link} href="">
                                     Cơ sở y tế
                                 </Link>
                             </li>
                             <li className={nav.down_item}>
-                                <Link
-                                    className={nav.down_item_link}
-                                    href="/khoa"
-                                >
+                                <Link className={nav.down_item_link} href="">
                                     Khoa <FaCaretDown className="ml_4" />
                                 </Link>
                                 {/* subnav */}
@@ -290,7 +295,7 @@ export default function Nav({hascookie}) {
                                     <ul className={nav.sub_items}>
                                         <li className={nav.sub_item}>
                                             <Link
-                                                href={'/tim'}
+                                                href={''}
                                                 className={nav.sub_item_link}
                                             >
                                                 Tim
@@ -298,7 +303,7 @@ export default function Nav({hascookie}) {
                                         </li>
                                         <li className={nav.sub_item}>
                                             <Link
-                                                href={'/than-kinh'}
+                                                href={''}
                                                 className={nav.sub_item_link}
                                             >
                                                 Thần kinh
@@ -309,10 +314,7 @@ export default function Nav({hascookie}) {
                                 {/*end subnav */}
                             </li>
                             <li className={nav.down_item}>
-                                <Link
-                                    className={nav.down_item_link}
-                                    href="/huong-dan"
-                                >
+                                <Link className={nav.down_item_link} href="">
                                     Hướng dẫn <FaCaretDown className="ml_4" />
                                 </Link>
                                 {/* subnav */}
@@ -320,7 +322,7 @@ export default function Nav({hascookie}) {
                                     <ul className={nav.sub_items}>
                                         <li className={nav.sub_item}>
                                             <Link
-                                                href={'/tim'}
+                                                href={''}
                                                 className={nav.sub_item_link}
                                             >
                                                 Quy trình đặt lịch khám
@@ -328,7 +330,7 @@ export default function Nav({hascookie}) {
                                         </li>
                                         <li className={nav.sub_item}>
                                             <Link
-                                                href={'/than-kinh'}
+                                                href={''}
                                                 className={nav.sub_item_link}
                                             >
                                                 Chỉnh sửa hồ sơ bệnh nhân
@@ -339,10 +341,7 @@ export default function Nav({hascookie}) {
                                 {/*end subnav */}
                             </li>
                             <li className={nav.down_item}>
-                                <Link
-                                    className={nav.down_item_link}
-                                    href="/tin-tuc"
-                                >
+                                <Link className={nav.down_item_link} href="">
                                     Tin tức{' '}
                                     <FaCaretDown
                                         className={[
@@ -356,7 +355,7 @@ export default function Nav({hascookie}) {
                                     <ul className={nav.sub_items}>
                                         <li className={nav.sub_item}>
                                             <Link
-                                                href={'/tim'}
+                                                href={''}
                                                 className={nav.sub_item_link}
                                             >
                                                 Tin dịch vụ
@@ -364,7 +363,7 @@ export default function Nav({hascookie}) {
                                         </li>
                                         <li className={nav.sub_item}>
                                             <Link
-                                                href={'/than-kinh'}
+                                                href={''}
                                                 className={nav.sub_item_link}
                                             >
                                                 Tin y tế
@@ -375,10 +374,7 @@ export default function Nav({hascookie}) {
                                 {/*end subnav */}
                             </li>
                             <li className={nav.down_item}>
-                                <Link
-                                    className={nav.down_item_link}
-                                    href="/about-us"
-                                >
+                                <Link className={nav.down_item_link} href="">
                                     Về chúng tôi
                                 </Link>
                             </li>

@@ -37,17 +37,21 @@ export function format_date2(date) {
 }
 
 export function checkDataCountry(data, dataCountry) {
-    const provide = dataCountry.filter((value) => value.Id == data[3]);
-
-    const district = provide[0].Districts.filter(
-        (value) => value.Id == data[2],
+    const provide = dataCountry.filter(
+        (value) => value.Id == data[data.length - 1],
     );
 
-    const wards = district[0].Wards.filter((value) => value.Id == data[1]);
+    const district = provide[0].Districts.filter(
+        (value) => value.Id == data[data.length - 2],
+    );
+
+    const wards = district[0].Wards.filter(
+        (value) => value.Id == data[data.length - 3],
+    );
 
     return (
-        data[0] +
-        ',  ' +
+        data.slice(0, data.length - 3).join(', ') +
+        ' , ' +
         wards[0].Name +
         ',  ' +
         district[0].Name +

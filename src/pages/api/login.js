@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
         // Kiểm tra xem tài khoản có tồn tại không
         const [rows] = await connection.execute(
-            'SELECT * FROM account WHERE username = ?',
+            'SELECT * FROM account join user on user.username = account.username WHERE account.username = ?',
             [username],
         );
 

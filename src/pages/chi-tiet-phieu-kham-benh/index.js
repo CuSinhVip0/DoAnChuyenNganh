@@ -93,12 +93,11 @@ function Page(props) {
                                                 PHIẾU KHÁM BỆNH
                                             </p>
                                             <p className={chitiet.item_subname}>
-                                                Bệnh viện Đại học Y Dược TP.HCM
+                                                Bệnh viện MedConnect TP.HCM
                                             </p>
                                             <p className={chitiet.item_adress}>
-                                                Cơ sở 201 Nguyễn Chí Thanh,
-                                                Phường 12, Quận 5, TP. Hồ Chí
-                                                Minh
+                                                180 Cao Lỗ, Phường 4, Quận 8,
+                                                TP. Hồ Chí Minh
                                             </p>
                                             <p
                                                 className={

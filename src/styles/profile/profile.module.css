@@ -163,3 +163,15 @@
     line-height: normal;
     margin-bottom: 32px;
 }
+
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img {
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+}
