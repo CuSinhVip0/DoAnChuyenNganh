@@ -8,9 +8,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
-  
+
 .dialog_content {
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -20,44 +19,29 @@
     font-size: 14px;
     width: 520px;
 }
-  
-.dialog_content h2{
+
+.dialog_content h2 {
     font-size: 18px;
     font-weight: 600;
     padding-bottom: 16px;
     color: #40a9ff;
 }
 
-
-  
-  .custom_icon {
-    color: #b4b4b4; 
-    margin-right: 5px ;
-  }
-  .container{ 
+.custom_icon {
+    color: #b4b4b4;
+    margin-right: 5px;
+}
+.container {
     height: 35px;
     margin: 0px;
+    display: flex;
+    align-items: flex-start;
 }
-  .container strong {
-
-    display: inline-block;
-    width: 150px; 
-  }
-
-  .container p {
-    display: inline-block;
-    margin-left: 2px; 
-  }
-
 
 .close_button {
-
     position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
 }
-  
-
-  

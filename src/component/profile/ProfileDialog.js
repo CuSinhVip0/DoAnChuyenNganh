@@ -35,91 +35,128 @@ const ProfileDialog = ({data, onClose}) => {
 
                 <div className={styles.content_wrapper}>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faUser}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>Họ và tên:</strong>
-                            <span>{data.ten}</span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faUser}
+                                className={styles.custom_icon}
+                            />
+                            Họ và tên:
+                        </div>
+                        <div style={{flex: '3'}}>{data.ten}</div>
                     </div>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faBirthdayCake}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>Ngày sinh:</strong>
-                            <span>{formattedDate}</span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faBirthdayCake}
+                                className={styles.custom_icon}
+                            />
+                            Ngày sinh:
+                        </div>
+                        <div style={{flex: '3'}}>{formattedDate}</div>
                     </div>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faPhone}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>Số điện thoại:</strong>
-                            <span>{data.sdt}</span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faPhone}
+                                className={styles.custom_icon}
+                            />
+                            Số điện thoại:
+                        </div>
+                        <div style={{flex: '3'}}>{data.sdt}</div>
                     </div>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faVenusMars}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>Giới tính:</strong>
-                            <span>{data.gioi_tinh}</span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faVenusMars}
+                                className={styles.custom_icon}
+                            />
+                            Giới tính:
+                        </div>
+                        <div style={{flex: '3'}}>{data.gioi_tinh}</div>
                     </div>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faIdCard}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>BHYT:</strong> <span>{data.bhyt}</span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faIdCard}
+                                className={styles.custom_icon}
+                            />
+                            BHYT:
+                        </div>
+                        <div style={{flex: '3'}}>{data.bhyt}</div>
                     </div>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faEnvelope}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>Email:</strong> <span>{data.email}</span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faEnvelope}
+                                className={styles.custom_icon}
+                            />
+                            Email:
+                        </div>
+                        <div style={{flex: '3'}}>{data.email}</div>
                     </div>
                     <div className={styles.container}>
-                        <p>
-                            <span>
-                                <FontAwesomeIcon
-                                    icon={faMapMarkerAlt}
-                                    className={styles.custom_icon}
-                                />
-                            </span>
-                            <strong>Địa chỉ:</strong>
-                            <span>
-                                {checkDataCountry(
-                                    data.dia_chi.split(', '),
-                                    dataCountry,
-                                )}
-                            </span>
-                        </p>
+                        <div
+                            style={{
+                                flex: '1',
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={faMapMarkerAlt}
+                                className={styles.custom_icon}
+                            />
+                            Địa chỉ:
+                        </div>
+                        <div style={{flex: '3'}}>
+                            {checkDataCountry(
+                                data.dia_chi.split(', '),
+                                dataCountry,
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -75,8 +75,4 @@ export default async function handler(req, res) {
         row.map((row) => rows.push(row));
     }
     res.status(200).json({bacsi: rows, khoa: khoa});
-
-    /* 
-        @tim ten khoa
-        */
 }

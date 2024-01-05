@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import {getCookie, hasCookie} from 'cookies-next';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
+import {useRouter} from 'next/router';
+import Image from 'next/image';
 
 import style from '@/styles/profile/profile.module.css';
 
@@ -13,11 +15,13 @@ import {
     faFileAlt,
     faFileMedical,
 } from '@fortawesome/free-solid-svg-icons';
+import {MdOutlineMedicalInformation} from 'react-icons/md';
 
 import PatientInfoForm from '@/component/profile/PatientInfoForm';
 import ProfileDialog from '@/component/profile/ProfileDialog';
 import PhieuKhamBenh from '@/component/profile/PhieuKhamBenh';
-import {useRouter} from 'next/router';
+
+import user from '../../../public/user.svg';
 
 export const getServerSideProps = async ({req, res}) => {
     const hascookie = await fetch(
@@ -51,7 +55,10 @@ export const getServerSideProps = async ({req, res}) => {
 
 function Page(props) {
     const router = useRouter();
-
+    const input = useRef();
+    const img = useRef();
+    const [image, setImage] = useState(null);
+    const [createObjectURL, setCreateObjectURL] = useState(null);
     const [selectedPatient, setSelectedPatient] = useState(null);
     const [patientData, setPatientData] = useState(props.patientData);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -94,6 +101,8 @@ function Page(props) {
             console.error('Error deleting patient record:', error);
         }
     };
+
+    //uphinh
 
     const handleViewDetails = (patientId) => {
         if (patientData && patientData.result) {
@@ -186,21 +195,24 @@ function Page(props) {
                                             className={style.icon_profile}
                                         />
                                         Phiếu khám bệnh
-                                    </button>
+                                    </button>{' '}
                                 </div>
                             </div>
 
                             {/* right */}
                             <div className={style.right}>
                                 <div className={style.right_container}>
-                                    <div
-                                        className={` ${style.title} text_align_center`}
-                                    >
-                                        {router.query.tab === 'hoso' &&
-                                            'Danh sách hồ sơ bệnh nhân'}
-                                        {router.query.tab === 'phieukhambenh' &&
-                                            'Danh sách phiếu khám bệnh'}
-                                    </div>
+                                    {router.query.tab !== 'info' && (
+                                        <div
+                                            className={` ${style.title} text_align_center`}
+                                        >
+                                            {router.query.tab === 'hoso' &&
+                                                'Danh sách hồ sơ bệnh nhân'}
+                                            {router.query.tab ===
+                                                'phieukhambenh' &&
+                                                'Danh sách phiếu khám bệnh'}
+                                        </div>
+                                    )}
 
                                     <>
                                         {router.query.tab === 'hoso' &&
@@ -297,3 +309,13 @@ function Page(props) {
 }
 
 export default Page;
+//                                              function handleChangeFile(a) {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(a.files[0]);
+//     reader.addEventListener("load", (event) => {
+//         // Lấy chuỗi Binary thông tin hình ảnh
+//         const img = event.target.result;
+//         document.querySelector(".img").src = img
+//     })
+//     document.getElementById("form_img").submit()
+// }

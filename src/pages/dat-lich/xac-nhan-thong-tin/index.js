@@ -23,7 +23,7 @@ import {PiGenderIntersex} from 'react-icons/pi';
 import {FiPhone} from 'react-icons/fi';
 
 import dataCountry from '../../../../public/data/data';
-import {format_date} from '@/functions/xoa_dau';
+import {format_date, checkDataCountry} from '@/functions/xoa_dau';
 
 export async function getServerSideProps({req, res}) {
     const hascookie = await fetch(
@@ -425,6 +425,7 @@ function Page(props) {
                                                             user.result[0].dia_chi.split(
                                                                 ', ',
                                                             ),
+                                                            dataCountry,
                                                         )}
                                                     </p>
                                                 </li>
@@ -485,23 +486,3 @@ function Page(props) {
 }
 
 export default Page;
-
-function checkDataCountry(data) {
-    const provide = dataCountry.filter((value) => value.Id == data[3]);
-
-    const district = provide[0].Districts.filter(
-        (value) => value.Id == data[2],
-    );
-
-    const wards = district[0].Wards.filter((value) => value.Id == data[1]);
-
-    return (
-        data[0] +
-        ',  ' +
-        wards[0].Name +
-        ',  ' +
-        district[0].Name +
-        ',  ' +
-        provide[0].Name
-    );
-}

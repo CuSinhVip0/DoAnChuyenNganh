@@ -97,9 +97,9 @@
 .item_adress {
     font-size: 13px;
     font-weight: 300;
-    width: 300px;
+    box-sizing: border-box;
     text-align: center;
-    padding: 0px 30px;
+
     margin-bottom: 24px;
 }
 .item_titleCode {

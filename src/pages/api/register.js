@@ -13,12 +13,12 @@ export default async function handler(req, res) {
         const hash = bcrypt.hashSync(password, 10);
         const id = uuidv4();
         await connection.execute(
-            'insert into account(username,password,role,id_nguoidung) values(?,?,?,?)',
-            [req.body.username, hash, 'PATIENT', id],
+            'insert into account(username,password,role) values(?,?,?)',
+            [req.body.username, hash, 'PATIENT'],
         );
         await connection.execute(
-            'insert into user(id_nguoidung,ten) values(?,?)',
-            [id, 'nguoidung_' + id.split('-')[0]],
+            'insert into user(id_nguoidung,ten,username) values(?,?,?)',
+            [id, 'nguoidung_' + id.split('-')[0], req.body.username],
         );
         res.redirect(307, '/login');
     } catch (error) {

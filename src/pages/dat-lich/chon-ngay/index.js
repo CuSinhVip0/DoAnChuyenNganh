@@ -177,7 +177,7 @@ function Page(props) {
     return (
         <>
             <Head>
-                <title>Đặt lịch khám bệnh - Chọn khoa khám</title>
+                <title>Chọn khoa khám - Đặt lịch khám bệnh</title>
             </Head>
 
             <div className={style.wrapper}>

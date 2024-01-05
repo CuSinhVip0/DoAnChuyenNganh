@@ -3,8 +3,6 @@ import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {getCookie} from 'cookies-next';
 
-import {useEffect, useRef} from 'react';
-
 import style from '@/styles/datLich/chonKhoa.module.css';
 import chonGio from '@/styles/datLich/chonGio.module.css';
 
@@ -27,6 +25,7 @@ export async function getServerSideProps({req, res}) {
         props: {hascookie: await hascookie.json(), result: await posts.json()},
     };
 }
+
 function Page(props) {
     const router = useRouter();
     const handleAddTime = (time) => {
@@ -46,7 +45,7 @@ function Page(props) {
     return (
         <>
             <Head>
-                <title>Đặt lịch khám bệnh - Chọn giờ khám</title>
+                <title>Chọn giờ khám - Đặt lịch khám bệnh</title>
             </Head>
 
             <div className={style.wrapper}>
@@ -110,6 +109,7 @@ function Page(props) {
                                                 </p>
                                             </div>
                                         </li>
+
                                         <li className={style.left_body_item}>
                                             <div className={style.item_icon}>
                                                 <FaBriefcaseMedical
